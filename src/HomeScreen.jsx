@@ -13,16 +13,18 @@ class HomeScreen extends Component {
 
         let reqPath="/lyrics/artist/"+this.state.artist.replace(/ /g, "|")+"/title/"+this.state.title.replace(/ /g, "|")
         console.log(this.state.URL+reqPath)
-        const response =  fetch(this.state.URL+reqPath, {
+        fetch(this.state.URL+reqPath, {
             method: "GET",
             headers: {'Content-Type': 'application/json'},
         }).then((response) => {
+            console.log(response)
             return response.json();
           }).then((myJson) => {
-            console.log(myJson["lyrics"]);
             if(myJson["status"]==="found")
             this.props.getSongArray(myJson["lyrics"])
-            else alert("abc")
+            else this.props.tellSongNotFound()
+          }).catch(()=>{
+            this.props.tellSongNotFound()
           })
        
     }

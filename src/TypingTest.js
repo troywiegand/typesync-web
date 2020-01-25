@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
+
+var divStyle = {
+  overflow: 'none',
+  height: '0px',
+  background: 'transparent',
+}
+
+
 class TypingTest extends Component {
 
   constructor() {
@@ -122,8 +130,3 @@ class TypingTest extends Component {
 
 export default TypingTest;
 
-var divStyle = {
-  overflow: 'none',
-  height: '0px',
-  background: 'transparent',
-}
