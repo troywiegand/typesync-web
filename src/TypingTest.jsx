@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
-import UserInputScoreboard from './UserSubmitScore';
+import UserSubmitScore from './UserSubmitScore';
 import ProgressBar from './Components/ProgressBar';
 
 var divStyle = {
@@ -25,7 +25,7 @@ class TypingTest extends Component {
       showLines: true,
       milliseconds: 0,
       startTyping: false,
-      userInputScoreboardVisible: false,
+      userUserSubmitScoreVisible: false,
       songUUID: "fakeUUID",
       songCharLength: 19,
       typedChars: 0,
@@ -80,7 +80,7 @@ class TypingTest extends Component {
     } else {
       ev.preventDefault()
       clearInterval(this.timer)
-      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true, typedChars: this.state.typedChars + 1 })
+      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userSubmitScoreVisible: true, typedChars: this.state.typedChars + 1 })
     }
   }
 
@@ -109,9 +109,9 @@ class TypingTest extends Component {
     }
   }
 
-  createUserInputScoreboard = () => {
-    if (this.state.userInputScoreboardVisible)
-      return (<UserInputScoreboard scoreTime={this.state.milliseconds} songUUID={this.state.songUUID} />)
+  createUserSubmitScore = () => {
+    if (this.state.userSubmitScoreVisible)
+      return (<UserSubmitScore scoreTime={this.state.milliseconds} songUUID={this.props.songInfo.genius_id} />)
     else return (<div />)
   }
 
@@ -143,7 +143,7 @@ class TypingTest extends Component {
           </div>
           <br />
           <div>
-            {this.createUserInputScoreboard()}
+            {this.createUserSubmitScore()}
             {Math.round(this.state.milliseconds / 10) / 10} seconds
           <ProgressBar percentage={this.state.typedChars / this.state.songCharLength * 100} />
           </div>
