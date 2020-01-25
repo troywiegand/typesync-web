@@ -49,7 +49,7 @@ class TypingTest extends Component {
     else this.setState({ classOfText: "good" })
   }
 
-  goodLine = () => {
+  goodLine = (ev) => {
     let newCurrentLine = ""
     let newNextLine = ""
     let currentStuff = ""
@@ -82,10 +82,10 @@ class TypingTest extends Component {
 
   checkLine = (ev) => {
     if (this.state.nextString === "" && this.state.currentString.substring(0, this.state.currentString.length - 1) === this.state.typingString) {
-      this.goodLine()
+      this.goodLine(ev)
     }
     else if (this.state.currentString === this.state.typingString || (this.state.typingString.charAt(this.state.typingString.length - 1) === " " && this.state.currentString === this.state.typingString.substring(0, this.state.typingString.length - 2))) {
-      this.goodLine()
+      this.goodLine(ev)
     }
   }
 
