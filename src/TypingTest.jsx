@@ -41,7 +41,8 @@ class TypingTest extends Component {
       currentString: newCurrent,
       nextString: newNext,
       stringArray: songLines,
-      songLineLength: this.props.songArray.length
+      songLineLength: this.props.songArray.length,
+      songCharLength: this.props.songInfo.total_char
     })
   }
 
