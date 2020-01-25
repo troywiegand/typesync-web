@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
 import UserInputScoreboard from './UserSubmitScore';
+import ProgressBar from './Components/ProgressBar';
 
 var divStyle = {
   overflow: 'none',
@@ -26,7 +27,8 @@ class TypingTest extends Component {
       startTyping: false,
       userInputScoreboardVisible: false,
       songUUID: "fakeUUID",
-      songCharLength: 0,
+      songCharLength: 19,
+      typedChars: 0,
     }
 
   }
@@ -39,14 +41,15 @@ class TypingTest extends Component {
       currentString: newCurrent,
       nextString: newNext,
       stringArray: songLines,
-      songLineLength: this.props.songArray.length
+      songLineLength: this.props.songArray.length,
+      songCharLength: this.props.songInfo.total_char
     })
   }
 
   checkRenderBad = () => {
     if (this.state.typingString !== this.state.currentString.substring(0, this.state.typingString.length))
       this.setState({ classOfText: "bad" })
-    else this.setState({ classOfText: "good" })
+    else this.setState({ classOfText: "good", typedChars: this.state.typedChars + 1 })
   }
 
   goodLine = (ev) => {
@@ -64,19 +67,20 @@ class TypingTest extends Component {
           nextString: newNextLine,
           stringArray: currentStuff,
           typingString: "",
-          classOfText: "good"
+          classOfText: "good",
+          typedChars: this.state.typedChars + 1
         })
       } else {
         ev.preventDefault()
         this.setState({
           currentString: newCurrentLine,
-          nextString: "", typingString: "", classOfText: "good"
+          nextString: "", typingString: "", classOfText: "good", typedChars: this.state.typedChars + 1
         })
       }
     } else {
       ev.preventDefault()
       clearInterval(this.timer)
-      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true })
+      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true, typedChars: this.state.typedChars + 1 })
     }
   }
 
@@ -139,10 +143,11 @@ class TypingTest extends Component {
           </div>
           <br />
           <div>
-          {this.createUserInputScoreboard()}
+            {this.createUserInputScoreboard()}
             {Math.round(this.state.milliseconds / 10) / 10} seconds
+          <ProgressBar percentage={this.state.typedChars / this.state.songCharLength * 100} />
           </div>
-         
+
         </div>
       </div>
 

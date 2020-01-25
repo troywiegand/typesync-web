@@ -33,7 +33,7 @@ class App extends Component {
 
   createTest = () => {
     if (this.state.testVisible) {
-      return (<TypingTest songArray={this.state.songArray} />)
+      return (<TypingTest songArray={this.state.songArray} songInfo={this.state.songInfo} />)
     } else { return (<div />) }
   }
 
