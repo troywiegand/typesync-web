@@ -1,3 +1,23 @@
 #leaderboard {
-    margin: 0 auto;
+    margin: 30px auto;
+    width: 600px;
+    box-shadow: 0 5px 5px 5px lightgrey;
+    padding: 10px;
+    border: solid black 0;
+    border-style: hidden;
+    border-collapse: collapse;
+}
+
+tbody {
+    border: solid black 0;
+    border-style: hidden;
+}
+
+td, th {
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+    border: solid black 0;
 }
