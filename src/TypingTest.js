@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
+import UserInputScoreboard from './UserInputScoreboard';
 
 var divStyle = {
   overflow: 'none',
@@ -23,6 +24,9 @@ class TypingTest extends Component {
       showLines: true,
       milliseconds: 0,
       startTyping: false,
+      userInputScoreboardVisible: false,
+      songUUID: "fakeUUID",
+      songLineLength: 0,
     }
 
   }
@@ -31,7 +35,10 @@ class TypingTest extends Component {
     let songLines=this.props.songArray
     let newCurrent=songLines.shift()
     let newNext=songLines.shift()
-    this.setState({currentString:newCurrent,nextString:newNext,stringArray:songLines})
+    this.setState({currentString:newCurrent,
+                  nextString:newNext,
+                  stringArray:songLines,
+                  songLineLength:this.props.songArray.length})
   }
 
   checkRenderBad = () => {
@@ -67,9 +74,9 @@ class TypingTest extends Component {
           })
         }
       } else {
-        this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true })
         ev.preventDefault()
         clearInterval(this.timer)
+        this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true })
       }
 
     }
@@ -89,6 +96,12 @@ class TypingTest extends Component {
     if (ev.key === 'Enter' || ev.key === ' ') {
       this.checkLine(ev)
     }
+  }
+
+  createUserInputScoreboard = () => {
+    if(this.state.userInputScoreboardVisible)
+    return (<UserInputScoreboard scoreTime={this.state.milliseconds} songUUID={this.state.songUUID}/>)
+    else return(<div/>)
   }
 
   render() {
@@ -117,10 +130,11 @@ class TypingTest extends Component {
             </div>
 
           </div>
+          <br/>
           <div>
-            {this.state.milliseconds/100} seconds
+            {Math.round(this.state.milliseconds/10)/10} seconds
           </div>
-
+          {this.createUserInputScoreboard()}
         </div>
       </div>
 

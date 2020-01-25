@@ -20,8 +20,10 @@ class HomeScreen extends Component {
             console.log(response)
             return response.json();
           }).then((myJson) => {
-            if(myJson["status"]==="found")
-            this.props.getSongArray(myJson["lyrics"])
+            if(myJson["status"]==="found"){
+                this.props.getSongArray(myJson["lyrics"])
+                console.log(myJson)
+            }
             else this.props.tellSongNotFound()
           }).catch(()=>{
             this.props.tellSongNotFound()
