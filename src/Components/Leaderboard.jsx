@@ -44,8 +44,8 @@ class Leaderboard extends Component {
                     return <tr>
                         <td>{index + 1}</td>
                         <td>{value.username}</td>
-                        <td>{value.milliseconds}</td>
-                        <td>{value.time}</td>
+                        <td>{new Date(value.milliseconds).toDateString()}</td>
+                        <td>{(value.time/1000).toFixed(2)}</td>
                     </tr>
                 })}
                 </tbody>
