@@ -13,6 +13,8 @@ class TypingTest extends Component {
       stringArray: ["tuv"],
       showVictory: false,
       showLines: true,
+      milliseconds: 0,
+      startTyping: false,
     }
 
   }
@@ -50,8 +52,9 @@ class TypingTest extends Component {
           })
         }
       } else {
-        this.setState({ currentString: "", typingString: "",showLines:false,showVictory:true})
+        this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true })
         ev.preventDefault()
+        clearInterval(this.timer)
       }
 
     }
@@ -59,7 +62,12 @@ class TypingTest extends Component {
 
 
   handleChangeTypingString = (ev) => {
-    this.setState({ typingString: ev.target.value }, this.checkRenderBad)
+    if (this.state.startTyping)
+      this.setState({ typingString: ev.target.value }, this.checkRenderBad)
+    else {
+      this.timer=setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 10)
+      this.setState({ typingString: ev.target.value,startTyping:true}, this.checkRenderBad)
+    }
   }
 
   handleKeyPress = (ev) => {
@@ -93,6 +101,9 @@ class TypingTest extends Component {
               {this.state.nextString}
             </div>
 
+          </div>
+          <div>
+            {this.state.milliseconds/100} seconds
           </div>
 
         </div>
