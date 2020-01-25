@@ -6,7 +6,7 @@ class Title extends Component{
     render(){
         return(
             <div className="Title">
-            <h2>TYPESYNC</h2>
+            <h2 onClick={() => {window.location.href="/"}}>TYPESYNC</h2>
             </div>
         )
     }
