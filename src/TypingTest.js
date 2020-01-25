@@ -5,18 +5,25 @@ class TypingTest extends Component {
   constructor() {
     super()
     this.state = {
-      currentString: "abc def",
-      nextString: "xyz",
+      currentString: "",
+      nextString: "",
       typingString: "",
       victoryMessage: "You are a winner!",
       classOfText: "good",
-      stringArray: ["tuv"],
+      stringArray: [],
       showVictory: false,
       showLines: true,
       milliseconds: 0,
       startTyping: false,
     }
 
+  }
+
+  componentDidMount(){
+    let songLines=this.props.songArray
+    let newCurrent=songLines.shift()
+    let newNext=songLines.shift()
+    this.setState({currentString:newCurrent,nextString:newNext,stringArray:songLines})
   }
 
   checkRenderBad = () => {
