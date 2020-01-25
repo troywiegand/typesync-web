@@ -126,7 +126,7 @@ class TypingTest extends Component {
       <div className="TypingTest">
         <br />
         <div style={divStyle}>
-          <input autoComplete="off" id="typingField" className={this.state.classOfText} type="text" name="typing"
+          <input autoComplete="off" id="typingField" className={this.state.classOfText} onPaste={(e)=> {e.preventDefault(); return false;}}type="text" name="typing"
             autoFocus placeholder="Type Here... "
             value={this.state.typingString}
             onKeyPress={this.handleKeyPress}
@@ -151,7 +151,7 @@ class TypingTest extends Component {
           <div>
             {this.createUserSubmitScore()}
             {Math.round(this.state.milliseconds / 10) / 10} seconds
-          <ProgressBar percentage={this.state.typedChars / this.state.songCharLength * 100} />
+          <ProgressBar percentage={100>this.state.typedChars / this.state.songCharLength * 100?this.state.typedChars / this.state.songCharLength * 100:100} />
           </div>
 
         </div>
