@@ -4,6 +4,7 @@ import Title from './Components/Title.jsx';
 import SearchBars from './SearchBars.jsx';
 import SongConfirmationPage from './SongConfirmationPage.jsx';
 import TypingTest from './TypingTest.jsx';
+import Leaderboard from './Components/Leaderboard.jsx';
 
 class App extends Component {
   constructor() {
@@ -53,6 +54,11 @@ class App extends Component {
     this.setState({songConfirmationVisible:false})
   }
 
+  createLeaderboard = () => {
+    if (this.state.songConfirmationVisible) {
+      return <Leaderboard song={this.state.songInfo} />
+    }
+  }
 
 
   render() {
@@ -61,6 +67,7 @@ class App extends Component {
         <Title/>
         {this.createSearchBars()}
         {this.createSongConfirmation()}
+        {this.createLeaderboard()}
         {this.createTest()}
       </div>
     );
