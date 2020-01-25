@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './SearchBars.css';
 
 class SearchBars extends Component {
 
@@ -43,18 +44,18 @@ class SearchBars extends Component {
     render() {
         return (<div className="HomeScreen">
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="title"
+                <input class="flex-item" id="song-box" type="text" name="title"
                     autoFocus
                     placeholder="Song Title "
                     value={this.state.title}
                     onChange={this.handleChangeTitle}
                 />
-                <input type="text" name="rule"
+                <input class="flex-item" id="artist-box" type="text" name="rule"
                     placeholder="Artist Name.. "
                     value={this.state.body}
                     onChange={this.handleChangeArtist}
                 />
-                <button type="submit" >Find Your Song!</button>
+                <button class="flex-item" id="search-button" type="submit" >Find Your Song!</button>
             </form>
         </div>)
     }
