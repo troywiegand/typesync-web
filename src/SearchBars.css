@@ -1,0 +1,39 @@
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style:none;
+
+    display: flex;
+
+    justify-content: space-around;
+}
+
+.flex-item {
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+
+    line-height: 40px;
+    font-size: 3em;
+    text-align: center;
+}
+
+#song-box{
+    width: 20%;
+    height: 42px;
+    font-size: 22px;
+    margin-right: 1%;
+}
+
+#artist-box{
+    width: 20%;
+    height: 42px;
+    font-size: 22px;
+}
+
+#search-button{
+    width: 30px;
+    height: 42px;
+    font-size: 22px;
+}
