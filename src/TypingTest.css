@@ -22,3 +22,8 @@ input.good:focus {
 .displayText{
     font-size:28pt;
 }
+
+.victoryText{
+    font-size:36pt;
+    color: #034d03
+}

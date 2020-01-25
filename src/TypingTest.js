@@ -10,7 +10,9 @@ class TypingTest extends Component {
       typingString: "",
       victoryMessage: "You are a winner!",
       classOfText: "good",
-      stringArray: ["tuv"]
+      stringArray: ["tuv"],
+      showVictory: false,
+      showLines: true,
     }
 
   }
@@ -21,40 +23,50 @@ class TypingTest extends Component {
     else this.setState({ classOfText: "good" })
   }
 
-  checkLine = () => {
-    if (this.state.currentString === this.state.typingString) {
-      let newCurrentLine=""
-      let newNextLine=""
-      let currentStuff=""
-      if (this.state.nextString!==""){
+  checkLine = (ev) => {
+    if (this.state.currentString === this.state.typingString || (this.state.typingString.charAt(this.state.typingString.length - 1) === " " &&
+      this.state.currentString === this.state.typingString.substring(0, this.state.typingString.length - 2))) {
+      let newCurrentLine = ""
+      let newNextLine = ""
+      let currentStuff = ""
+      if (this.state.nextString !== "") {
         newCurrentLine = this.state.nextString
-        if(this.state.stringArray.length>0){
-          currentStuff=this.state.stringArray
-          newNextLine=currentStuff.shift()
-          this.setState({currentString: newCurrentLine, 
-                        nextString:newNextLine,
-                        stringArray:currentStuff,
-                        typingString: ""})
-        }else{
-          this.setState({currentString: newCurrentLine, 
-            nextString:"", typingString: ""})
+        if (this.state.stringArray.length > 0) {
+          currentStuff = this.state.stringArray
+          newNextLine = currentStuff.shift()
+          ev.preventDefault()
+          this.setState({
+            currentString: newCurrentLine,
+            nextString: newNextLine,
+            stringArray: currentStuff,
+            typingString: "",
+            classOfText: "good"
+          })
+        } else {
+          ev.preventDefault()
+          this.setState({
+            currentString: newCurrentLine,
+            nextString: "", typingString: "", classOfText: "good"
+          })
         }
-      }else{
-        alert(this.state.victoryMessage)
+      } else {
+        this.setState({ currentString: "", typingString: "",showLines:false,showVictory:true})
+        ev.preventDefault()
       }
-      
+
     }
   }
 
-  checkAllTheThings = () => {
-    this.checkLine()
-    this.checkRenderBad()
-  }
 
   handleChangeTypingString = (ev) => {
-    this.setState({ typingString: ev.target.value }, this.checkAllTheThings)
+    this.setState({ typingString: ev.target.value }, this.checkRenderBad)
   }
 
+  handleKeyPress = (ev) => {
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      this.checkLine(ev)
+    }
+  }
 
   render() {
     return (
@@ -64,16 +76,25 @@ class TypingTest extends Component {
           <input autoComplete="off" id="typingField" className={this.state.classOfText} type="text" name="typing"
             autoFocus placeholder="Type Here... "
             value={this.state.typingString}
+            onKeyPress={this.handleKeyPress}
             onChange={this.handleChangeTypingString}
+
           />
           <br />
-          <div className="displayText">
-            {this.state.currentString}
+          <div hidden={!this.state.showVictory} className="victoryText">
+            {this.state.victoryMessage}
           </div>
-          <br />
-          <div className="displayText">
-            {this.state.nextString}
+          <div hidden={!this.state.showLines}>
+            <div className="displayText">
+              {this.state.currentString}
+            </div>
+            <br />
+            <div className="displayText">
+              {this.state.nextString}
+            </div>
+
           </div>
+
         </div>
       </div>
 
