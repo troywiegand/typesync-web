@@ -5,7 +5,7 @@ class HomeScreen extends Component {
     state={
         title: '',
         artist: '',
-        URL: 'http://localhost:5000'
+        URL: 'http://34.74.220.91:8080'
     }
     
     handleSubmit= (ev) => {
