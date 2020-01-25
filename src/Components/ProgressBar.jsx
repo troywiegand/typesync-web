@@ -1,31 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ProgressBar.css'
-class ProgressBarExample extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            percentage: 0
-        }
-
-    }
-    componentWillReceiveProps(prevProps){
-        if(prevProps.percentage !== this.props.percentage){
-            this.setState({          
-                percentage: this.props.percentage
-            },()=>{console.log(this.state.percentage)});
-        }
-    }
-
-
-    render() {
-        return (
-            <ProgressBar percentage={this.state.percentage} />
-        )
-    }
-
-}
 
 const ProgressBar = (props) => {
     return (
