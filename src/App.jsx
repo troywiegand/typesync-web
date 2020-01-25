@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import TypingTest from './TypingTest';
-import HomeScreen from './HomeScreen';
-import SongNotFoundPage from './SongNotFoundPage';
+import Title from './Components/Title.jsx';
+import SearchBars from './SearchBars.jsx';
+import SongConfirmationPage from './SongConfirmationPage.jsx';
+import TypingTest from './TypingTest.jsx';
 
 class App extends Component {
   constructor() {
@@ -11,41 +12,56 @@ class App extends Component {
       songArray: [],
       searchVisible: true,
       testVisible: false,
-      songNotFoundVisible: false,
+      songConfirmationVisible: false,
+      songInfo: {},
     }
   }
 
-  createSongNotFound = () => {
-    if(this.state.songNotFoundVisible){
-      return(<SongNotFoundPage/>)
-    }else{return(<div/>)}
+  createSearchBars = () => {
+    if (this.state.searchVisible) {
+      return (<div>
+        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} />
+      </div>)
+    }
+  }
+
+  createSongConfirmation = () => {
+    if (this.state.songConfirmationVisible) {
+      return (<SongConfirmationPage destroySongConfirmation={this.destroySongConfirmation}confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo}/>)
+    } else { return (<div />) }
   }
 
   createTest = () => {
-    if(this.state.testVisible){
-      return(<TypingTest songArray={this.state.songArray} />)
-    }else{return(<div/>)}
+    if (this.state.testVisible) {
+      return (<TypingTest songArray={this.state.songArray} />)
+    } else { return (<div />) }
+  }
+
+  confirmSongForTest = () => {
+    this.setState({searchVisible: false, testVisible: true})
   }
 
   getSongArray = (myArray) => {
-    this.setState({ songArray: myArray, searchVisible: false, testVisible:true, songNotFoundVisible:false})
+    this.setState({ songArray: myArray})
   }
 
-  tellSongNotFound = () => {
-    this.setState({songNotFoundVisible:true})
+  tellSongConfirmation = (myJSON) => {
+    this.setState({ songConfirmationVisible: true, songInfo:myJSON })
   }
+
+  destroySongConfirmation = () => {
+    this.setState({songConfirmationVisible:false})
+  }
+
+
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to Lyric Typing Test</h2>
-        </div>
-        <div hidden={!this.state.searchVisible}>
-          <HomeScreen tellSongNotFound={this.tellSongNotFound} getSongArray={this.getSongArray} />
-        </div>
-       {this.createTest()}
-       {this.createSongNotFound()}
+        <Title/>
+        {this.createSearchBars()}
+        {this.createSongConfirmation()}
+        {this.createTest()}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class HomeScreen extends Component {
+class SearchBars extends Component {
     
     state={
         title: '',
@@ -23,10 +23,11 @@ class HomeScreen extends Component {
             if(myJson["status"]==="found"){
                 this.props.getSongArray(myJson["lyrics"])
                 console.log(myJson)
+                this.props.tellSongConfirmation(myJson)
             }
-            else this.props.tellSongNotFound()
+            else this.props.tellSongConfirmation({status:"not"})
           }).catch(()=>{
-            this.props.tellSongNotFound()
+            this.props.tellSongConfirmation({status:"not"})
           })
        
     }
@@ -61,4 +62,4 @@ class HomeScreen extends Component {
     }
 }
 
-export default HomeScreen;
+export default SearchBars;

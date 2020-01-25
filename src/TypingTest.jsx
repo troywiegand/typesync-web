@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
-import UserInputScoreboard from './UserInputScoreboard';
+import UserInputScoreboard from './UserSubmitScore';
 
 var divStyle = {
   overflow: 'none',
@@ -17,7 +17,7 @@ class TypingTest extends Component {
       currentString: "",
       nextString: "",
       typingString: "",
-      victoryMessage: "You are a winner!",
+      victoryMessage: "Enter Your Name Below to Earn Your Place on the Leaderboard!",
       classOfText: "good",
       stringArray: [],
       showVictory: false,
@@ -26,7 +26,7 @@ class TypingTest extends Component {
       startTyping: false,
       userInputScoreboardVisible: false,
       songUUID: "fakeUUID",
-      songLineLength: 0,
+      songCharLength: 0,
     }
 
   }
@@ -139,9 +139,10 @@ class TypingTest extends Component {
           </div>
           <br />
           <div>
+          {this.createUserInputScoreboard()}
             {Math.round(this.state.milliseconds / 10) / 10} seconds
           </div>
-          {this.createUserInputScoreboard()}
+         
         </div>
       </div>
 
