@@ -11,7 +11,6 @@ class UserSubmitScore extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ genius_id: this.props.songUUID,name: ev.target.userName.value, time: this.props.scoreTime}),
           })
-        alert("Do a POST: " + ev.target.userName.value + this.props.scoreTime + this.props.songUUID)
         this.setState({ showLeaderboard: true, showUserForm: false })
     }
 
