@@ -31,14 +31,16 @@ class TypingTest extends Component {
 
   }
 
-  componentDidMount(){
-    let songLines=this.props.songArray
-    let newCurrent=songLines.shift()
-    let newNext=songLines.shift()
-    this.setState({currentString:newCurrent,
-                  nextString:newNext,
-                  stringArray:songLines,
-                  songLineLength:this.props.songArray.length})
+  componentDidMount() {
+    let songLines = this.props.songArray
+    let newCurrent = songLines.shift()
+    let newNext = songLines.shift()
+    this.setState({
+      currentString: newCurrent,
+      nextString: newNext,
+      stringArray: songLines,
+      songLineLength: this.props.songArray.length
+    })
   }
 
   checkRenderBad = () => {
@@ -47,38 +49,43 @@ class TypingTest extends Component {
     else this.setState({ classOfText: "good" })
   }
 
-  checkLine = (ev) => {
-    if (this.state.currentString === this.state.typingString || (this.state.typingString.charAt(this.state.typingString.length - 1) === " " &&
-      this.state.currentString === this.state.typingString.substring(0, this.state.typingString.length - 2))) {
-      let newCurrentLine = ""
-      let newNextLine = ""
-      let currentStuff = ""
-      if (this.state.nextString !== "") {
-        newCurrentLine = this.state.nextString
-        if (this.state.stringArray.length > 0) {
-          currentStuff = this.state.stringArray
-          newNextLine = currentStuff.shift()
-          ev.preventDefault()
-          this.setState({
-            currentString: newCurrentLine,
-            nextString: newNextLine,
-            stringArray: currentStuff,
-            typingString: "",
-            classOfText: "good"
-          })
-        } else {
-          ev.preventDefault()
-          this.setState({
-            currentString: newCurrentLine,
-            nextString: "", typingString: "", classOfText: "good"
-          })
-        }
+  goodLine = () => {
+    let newCurrentLine = ""
+    let newNextLine = ""
+    let currentStuff = ""
+    if (this.state.nextString !== "") {
+      newCurrentLine = this.state.nextString
+      if (this.state.stringArray.length > 0) {
+        currentStuff = this.state.stringArray
+        newNextLine = currentStuff.shift()
+        ev.preventDefault()
+        this.setState({
+          currentString: newCurrentLine,
+          nextString: newNextLine,
+          stringArray: currentStuff,
+          typingString: "",
+          classOfText: "good"
+        })
       } else {
         ev.preventDefault()
-        clearInterval(this.timer)
-        this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true })
+        this.setState({
+          currentString: newCurrentLine,
+          nextString: "", typingString: "", classOfText: "good"
+        })
       }
+    } else {
+      ev.preventDefault()
+      clearInterval(this.timer)
+      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userInputScoreboardVisible: true })
+    }
+  }
 
+  checkLine = (ev) => {
+    if (this.state.nextString === "" && this.state.currentString.substring(0, this.state.currentString.length - 1) === this.state.typingString) {
+      this.goodLine()
+    }
+    else if (this.state.currentString === this.state.typingString || (this.state.typingString.charAt(this.state.typingString.length - 1) === " " && this.state.currentString === this.state.typingString.substring(0, this.state.typingString.length - 2))) {
+      this.goodLine()
     }
   }
 
@@ -87,21 +94,21 @@ class TypingTest extends Component {
     if (this.state.startTyping)
       this.setState({ typingString: ev.target.value }, this.checkRenderBad)
     else {
-      this.timer=setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 10)
-      this.setState({ typingString: ev.target.value,startTyping:true}, this.checkRenderBad)
+      this.timer = setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 10)
+      this.setState({ typingString: ev.target.value, startTyping: true }, this.checkRenderBad)
     }
   }
 
   handleKeyPress = (ev) => {
-    if (ev.key === 'Enter' || ev.key === ' ') {
+    if (ev.key === 'Enter' || ev.key === ' ' || ev.key === this.state.currentString.charAt(this.state.currentString.length - 1)) {
       this.checkLine(ev)
     }
   }
 
   createUserInputScoreboard = () => {
-    if(this.state.userInputScoreboardVisible)
-    return (<UserInputScoreboard scoreTime={this.state.milliseconds} songUUID={this.state.songUUID}/>)
-    else return(<div/>)
+    if (this.state.userInputScoreboardVisible)
+      return (<UserInputScoreboard scoreTime={this.state.milliseconds} songUUID={this.state.songUUID} />)
+    else return (<div />)
   }
 
   render() {
@@ -130,9 +137,9 @@ class TypingTest extends Component {
             </div>
 
           </div>
-          <br/>
+          <br />
           <div>
-            {Math.round(this.state.milliseconds/10)/10} seconds
+            {Math.round(this.state.milliseconds / 10) / 10} seconds
           </div>
           {this.createUserInputScoreboard()}
         </div>
