@@ -14,27 +14,35 @@ class App extends Component {
       searchVisible: true,
       testVisible: false,
       songConfirmationVisible: false,
+      leaderboardVisible:false,
       songInfo: {},
     }
   }
 
+  generateSearchBars = () =>{
+    this.setState({searchVisible:true})
+  }
   createSearchBars = () => {
     if (this.state.searchVisible) {
       return (<div>
-        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} />
+        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} resetConfirmationLeaderboard={this.resetConfirmationLeaderboard}/>
       </div>)
     }
   }
 
+  resetConfirmationLeaderboard = () => {
+    this.setState({leaderboardVisible:false,songConfirmationVisible:false})
+  }
+
   createSongConfirmation = () => {
     if (this.state.songConfirmationVisible) {
-      return (<SongConfirmationPage destroySongConfirmation={this.destroySongConfirmation}confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo}/>)
+      return (<SongConfirmationPage destroyLeaderboard={this.destroyLeaderboard} destroySongConfirmation={this.destroySongConfirmation} confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo}/>)
     } else { return (<div />) }
   }
 
   createTest = () => {
     if (this.state.testVisible) {
-      return (<TypingTest songArray={this.state.songArray} songInfo={this.state.songInfo} />)
+      return (<TypingTest generateSearchBars={this.generateSearchBars} generateLeaderboard={this.generateLeaderboard} songArray={this.state.songArray} songInfo={this.state.songInfo} />)
     } else { return (<div />) }
   }
 
@@ -47,17 +55,25 @@ class App extends Component {
   }
 
   tellSongConfirmation = (myJSON) => {
-    this.setState({ songConfirmationVisible: true, songInfo:myJSON })
+    this.setState({ leaderboardVisible: true ,songConfirmationVisible: true, songInfo:myJSON })
   }
 
   destroySongConfirmation = () => {
     this.setState({songConfirmationVisible:false})
   }
 
+  generateLeaderboard = () => {
+   this.setState({leaderboardVisible:true})
+  }
+
   createLeaderboard = () => {
-    if (this.state.songConfirmationVisible) {
+    if (this.state.leaderboardVisible) {
       return <Leaderboard song={this.state.songInfo} />
     }
+  }
+
+  destroyLeaderboard = () => {
+    this.setState({leaderboardVisible:false})
   }
 
 

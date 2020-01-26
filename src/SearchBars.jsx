@@ -3,13 +3,19 @@ import './SearchBars.css';
 
 class SearchBars extends Component {
 
-    state = {
-        title: '',
-        artist: '',
-        URL: 'http://34.74.220.91:8080'
+    constructor(props){
+        super(props)
+        this.state = {
+            title: '',
+            artist: '',
+            URL: 'http://34.74.220.91:8080'
+        }
+
     }
+    
 
     handleSubmit = (ev) => {
+        this.props.resetConfirmationLeaderboard()
         ev.preventDefault()
 
         let reqPath = "/lyrics/artist/" + this.state.artist.replace(/ /g, "|") + "/title/" + this.state.title.replace(/ /g, "|")

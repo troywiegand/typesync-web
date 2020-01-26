@@ -36,6 +36,11 @@ input.good:focus {
     color: #000000;
 }
 
+#boxed {
+    border-style: solid;
+    border: 1px green ;
+}
+
 #typingField{
     height:100px;
     font-size:28pt;

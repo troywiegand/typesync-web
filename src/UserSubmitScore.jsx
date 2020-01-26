@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 
 class UserSubmitScore extends Component {
 
-    state={URL: 'http://34.74.220.91:8080'}
+    state = { URL: 'http://34.74.220.91:8080', }
 
     submitUserScore = (ev) => {
         ev.preventDefault()
-        fetch(this.state.URL+'/score', {
+        fetch(this.state.URL + '/score', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ genius_id: this.props.songUUID,name: ev.target.userName.value, time: this.props.scoreTime}),
-          })
-        this.setState({ showLeaderboard: true, showUserForm: false })
+            body: JSON.stringify({ genius_id: this.props.songUUID, name: ev.target.userName.value, time: this.props.scoreTime }),
+        }).then(() => {
+            this.props.hideStats()
+            this.props.hideVictory()
+            this.props.generateLeaderboard()
+            this.props.destroyUserSubmitScore()
+            this.props.generateSearchBars()
+        }
+        )
+
     }
 
     render() {
