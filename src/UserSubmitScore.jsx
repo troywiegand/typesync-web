@@ -29,7 +29,7 @@ class UserSubmitScore extends Component {
                         wpm
                     </div>
                     <div>
-                        <div id="time">{(this.props.scoreTime / 1000).toFixed(1)}</div>
+                        <div id="time">{(this.props.scoreTime / 1000).toFixed(2)}</div>
                         time
                     </div>
                 </div>
