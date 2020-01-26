@@ -82,8 +82,8 @@ class TypingTest extends Component {
     } else {
       ev.preventDefault()
       clearInterval(this.timer)
-      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userSubmitScoreVisible: true, typedChars: this.state.typedChars + 1 , hideTextSubmission:true})
-  
+      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userSubmitScoreVisible: true, typedChars: this.state.typedChars + 1, hideTextSubmission: true })
+
     }
   }
 
@@ -121,7 +121,7 @@ class TypingTest extends Component {
   createUserSubmitScore = () => {
     if (this.state.userSubmitScoreVisible)
       return (<UserSubmitScore scoreTime={this.state.milliseconds} songUUID={this.props.songInfo.genius_id} generateLeaderboard={this.props.generateLeaderboard} destroyUserSubmitScore={this.destroyUserSubmitScore} hideVictory={this.hideVictory} hideStats={this.hideStats}
-        generateSearchBars={this.props.generateSearchBars}/>)
+        generateSearchBars={this.props.generateSearchBars} />)
   }
 
   destroyUserSubmitScore = () => {
@@ -129,11 +129,11 @@ class TypingTest extends Component {
   }
 
   hideVictory = () => {
-    this.setState({showVictory:false})
+    this.setState({ showVictory: false })
   }
 
-  hideStats = () =>{
-    this.setState({hideStats:true})
+  hideStats = () => {
+    this.setState({ hideStats: true })
   }
 
   render() {
@@ -166,10 +166,10 @@ class TypingTest extends Component {
           <div id="boxed">
             {this.createUserSubmitScore()}
             <div hidden={this.state.hideStats}>
-            {Math.round(this.state.milliseconds / 10) / 10} seconds
+              {Math.round(this.state.milliseconds / 10) / 10} seconds
           <ProgressBar percentage={100 > this.state.typedChars / this.state.songCharLength * 100 ? this.state.typedChars / this.state.songCharLength * 100 : 100} />
+            </div>
           </div>
-
         </div>
       </div>
 
