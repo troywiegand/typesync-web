@@ -7,9 +7,10 @@ class SongConfirmationPage extends Component {
 
     onConfirmationSubmit = (ev) =>{
         ev.preventDefault()
-        this.props.confirmSongForTest()
         this.setState({formVisible:false})
-    }
+        this.props.confirmSongForTest()
+        this.props.destroyLeaderboard()
+        }
 
     showForm = () => {
         if(this.state.formVisible)
@@ -86,7 +87,7 @@ class SongConfirmationPage extends Component {
     }
 
     goButton = () => {
-        if (this.props.song.status === "found") {
+        if (this.props.song.status === "found" && this.state.formVisible) {
             let color = this.getColor();
             let rect_style = {backgroundColor: color}
             let tri_style = {borderLeftColor: color}
