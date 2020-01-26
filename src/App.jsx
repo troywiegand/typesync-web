@@ -58,7 +58,7 @@ class App extends Component {
         this.setState({leaderboards: response["results"]})
       })
 
-      
+
       return <Leaderboard 
         persons={this.state.leaderboards}
         song={this.state.song}

@@ -15,3 +15,22 @@
     color: white;
     cursor: pointer;
 }
+
+.rainbow {
+    background: linear-gradient(-45deg, #272727, #ff5898, #ff5151, #f88e5d, #272727);
+    background-size: 500% 500%;
+    animation: gradient 25s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

@@ -32,7 +32,7 @@ class Leaderboard extends Component {
 
         if (list.length === 0) {
             return <div id="empty">
-                Be the first to complete this song!
+                {/* Be the first to complete this song! */}
             </div>
         } else {
             return <table id="leaderboard">

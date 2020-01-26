@@ -4,6 +4,12 @@ body {
   font-family: sans-serif;
 }
 
-/* * {
-  border: 1px solid black;
-} */
+.lights-out {
+  background-color: #222;
+  transition-duration: 2s;
+}
+
+.lights-on {
+  background-color: #fff;
+  transition-duration: 2s;
+}
