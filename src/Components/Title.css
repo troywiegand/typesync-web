@@ -17,9 +17,9 @@
 }
 
 .rainbow {
-    background: linear-gradient(-45deg, #272727, #ff5898, #ff5151, #f88e5d, #272727);
-    background-size: 500% 500%;
-    animation: gradient 25s ease infinite;
+    background: linear-gradient(-30deg, #574a56, #ff5898, #ff5151, #f88e5d, #574a56);
+    background-size: 300% 300%;
+    animation: gradient 30s ease infinite;
 }
 
 @keyframes gradient {

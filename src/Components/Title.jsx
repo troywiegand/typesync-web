@@ -5,7 +5,7 @@ class Title extends Component{
 
     render(){
         return(
-            <div className="Title">
+            <div className="Title rainbow">
             <h2 onClick={() => {window.location.href="/"}}>TYPESYNC</h2>
             </div>
         )
