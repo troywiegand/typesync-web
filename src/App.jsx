@@ -47,19 +47,7 @@ class App extends Component {
 
   createLeaderboard = () => {
     if (this.state.leaderboardVisible) {
-      let id = this.state.song.genius_id;
-      let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"
-      fetch(url, {
-        method: "GET",
-        headers: { 'Content-Type': 'application/json' },
-      }).then((response) => {
-        return response.json()
-      }).then((response) => {
-        this.setState({leaderboards: response["results"]})
-      })
-
       return <Leaderboard 
-        persons={this.state.leaderboards}
         song={this.state.song}
       />
       
@@ -74,9 +62,20 @@ class App extends Component {
         song={this.state.song}
       />
   }
+
+  // Hack to reset state on leaderboards
+  power_nap_leaderboards = () => {
+    this.setState({leaderboardVisible: false})
+    console.log("gone")
+    setTimeout(() => {
+      this.setState({leaderboardVisible: true})
+      console.log("back")
+    }, 500)
+  }
       
   // start to new song
   discovery = (json) => {
+    this.power_nap_leaderboards()
     this.setState({song: json, songConfirmationVisible: true, leaderboardVisible: true})
   }
 
@@ -92,7 +91,6 @@ class App extends Component {
 
   // user submit to new song
   research = (json) => {
-    //this.setState({ tally: this.state.tally + 1 })
     this.setState({ song: json, submissionVisible: false, searchVisible: true, songConfirmationVisible: true, leaderboardVisible: true})
   }
 
