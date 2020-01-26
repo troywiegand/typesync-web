@@ -71,9 +71,10 @@ class TypingTest extends Component {
       }
     } else {
       ev.preventDefault()
+      let m = this.state.milliseconds;
       clearInterval(this.timer)
       this.setState({ currentString: "", typingString: "", typedChars: this.state.typedChars + 1})
-      this.props.testComplete(this.state.milliseconds)
+      this.props.testComplete(m)
     }
   }
 
@@ -113,7 +114,7 @@ class TypingTest extends Component {
     return (
       <div className="TypingTest">
 
-        {(this.state.milliseconds / 1000).toFixed(1)}
+        {(this.state.milliseconds / 1000).toFixed(2)}
 
         <input
           autoComplete="off"
