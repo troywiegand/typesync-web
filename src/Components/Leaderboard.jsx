@@ -7,7 +7,7 @@ class Leaderboard extends Component {
         persons: []
     }
 
-    componentWillMount() {
+    componentDidMount() {
 
         let id = this.props.song.genius_id;
         let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"

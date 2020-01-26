@@ -11,47 +11,59 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      songArray: [],
       searchVisible: true,
       testVisible: false,
       songConfirmationVisible: false,
       leaderboardVisible: false,
-      songInfo: {},
+      song: {},
+      tally: 0,
     }
   }
 
   createSearchBars = () => {
     if (this.state.searchVisible) {
-      return (<div>
-        <SearchBars discovery={this.discovery} />
-      </div>)
+      return <SearchBars 
+        discovery={this.discovery}
+      />
     }
   }
 
   createSongConfirmation = () => {
     if (this.state.songConfirmationVisible)
-      return <SongConfirmationPage startTest={this.startTest} song={this.state.songInfo} />
+      return <SongConfirmationPage 
+        startTest={this.startTest} 
+        song={this.state.song}
+      />
   }
 
   createTest = () => {
     if (this.state.testVisible)
       return <TypingTest 
-        song={this.state.songInfo} 
+        testComplete={this.testComplete}
+        song={this.state.song}
       />
   }
 
   createLeaderboard = () => {
     if (this.state.leaderboardVisible) {
-      return <Leaderboard song={this.state.songInfo} />
+      return <Leaderboard 
+        song={this.state.song}
+      />
     }
   }
 
-    
-  
-
+  createUserSubmitScore = () => {
+    if (this.state.submissionVisible)
+      return <UserSubmitScore 
+        research={this.research}
+        scoreTime={this.state.testCompletionTime}
+        song={this.state.song}
+      />
+  }
+      
   // start to new song
   discovery = (json) => {
-    this.setState({songInfo: json, songConfirmationVisible: true, leaderboardVisible: true})
+    this.setState({song: json, songConfirmationVisible: true, leaderboardVisible: true})
   }
 
   // new song to test
@@ -61,25 +73,15 @@ class App extends Component {
 
   // test to user submit
   testComplete = (time) => {
-    this.setState({ testVisible: false, submissionVisible: true, testCompletionTime: time })
+    this.setState({ testVisible: false, submissionVisible: true, songConfirmationVisible: false, testCompletionTime: time })
   }
 
   // user submit to new song
-  research = () => {
-
+  research = (json) => {
+    this.setState({ tally: this.state.tally + 1 })
+    this.setState({ song: json, submissionVisible: false, songConfirmationVisible: true, leaderboardVisible: true, searchVisible: true})
   }
 
-  createUserSubmitScore = () => {
-    if (this.state.userSubmitScoreVisible)
-      return <UserSubmitScore 
-        scoreTime={this.state.milliseconds} 
-        songUUID={this.props.songInfo.genius_id} 
-        generateLeaderboard={this.props.generateLeaderboard} 
-        destroyUserSubmitScore={this.destroyUserSubmitScore}
-        generateSearchBars={this.props.generateSearchBars}
-      />
-  }
-      
   render = () => {
     return (
       <div className="App">

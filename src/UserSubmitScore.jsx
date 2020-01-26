@@ -9,15 +9,10 @@ class UserSubmitScore extends Component {
         fetch(this.state.URL + '/score', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ genius_id: this.props.songUUID, name: ev.target.userName.value, time: this.props.scoreTime }),
+            body: JSON.stringify({ genius_id: this.props.song.genius_id, name: ev.target.userName.value, time: this.props.scoreTime }),
         }).then(() => {
-            this.props.hideStats()
-            this.props.hideVictory()
-            this.props.generateLeaderboard()
-            this.props.destroyUserSubmitScore()
-            this.props.generateSearchBars()
-        }
-        )
+            this.props.research(this.props.song)
+        })
 
     }
 

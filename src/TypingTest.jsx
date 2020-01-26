@@ -21,15 +21,21 @@ class TypingTest extends Component {
   }
 
   componentDidMount() {
-    let songLines = this.props.song.lyrics
+    let dups = []
+    for (let i = 0; i < this.props.song.lyrics.length; i++) {
+      dups.push(this.props.song.lyrics[i])
+    }
+    console.log(this.props.song.lyrics)
+    let songLines = dups
     let newCurrent = songLines.shift()
     let newNext = songLines.shift()
     this.setState({
       currentString: newCurrent,
       nextString: newNext,
       stringArray: songLines,
-      songCharLength: this.props.song.total_char
+      songCharLength: this.props.song.total_char,
     })
+    console.log(this.props.song.lyrics)
   }
 
   checkRenderBad = () => {
@@ -124,7 +130,7 @@ class TypingTest extends Component {
 
         <ProgressBar 
           id="progress-bar" 
-          percentage = {
+          percentage={
             100 > this.state.typedChars / this.state.songCharLength * 100 
             ? this.state.typedChars / this.state.songCharLength * 100 
             : 100 } 
