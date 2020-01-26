@@ -163,7 +163,7 @@ class TypingTest extends Component {
 
           </div>
           <br />
-          
+          <div id="boxed">
             {this.createUserSubmitScore()}
             <div hidden={this.state.hideStats}>
             {Math.round(this.state.milliseconds / 10) / 10} seconds
