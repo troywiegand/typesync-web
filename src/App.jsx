@@ -14,29 +14,29 @@ class App extends Component {
       searchVisible: true,
       testVisible: false,
       songConfirmationVisible: false,
-      leaderboardVisible:false,
+      leaderboardVisible: false,
       songInfo: {},
     }
   }
 
-  generateSearchBars = () =>{
-    this.setState({searchVisible:true})
+  generateSearchBars = () => {
+    this.setState({ searchVisible: true })
   }
   createSearchBars = () => {
     if (this.state.searchVisible) {
       return (<div>
-        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} resetConfirmationLeaderboard={this.resetConfirmationLeaderboard}/>
+        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} resetConfirmationLeaderboard={this.resetConfirmationLeaderboard} />
       </div>)
     }
   }
 
   resetConfirmationLeaderboard = () => {
-    this.setState({leaderboardVisible:false,songConfirmationVisible:false})
+    this.setState({ leaderboardVisible: false, songConfirmationVisible: false })
   }
 
   createSongConfirmation = () => {
     if (this.state.songConfirmationVisible) {
-      return (<SongConfirmationPage destroyLeaderboard={this.destroyLeaderboard} destroySongConfirmation={this.destroySongConfirmation} confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo}/>)
+      return (<SongConfirmationPage destroyLeaderboard={this.destroyLeaderboard} destroySongConfirmation={this.destroySongConfirmation} confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo} />)
     } else { return (<div />) }
   }
 
@@ -47,23 +47,23 @@ class App extends Component {
   }
 
   confirmSongForTest = () => {
-    this.setState({searchVisible: false, testVisible: true})
+    this.setState({ searchVisible: false, testVisible: true })
   }
 
   getSongArray = (myArray) => {
-    this.setState({ songArray: myArray})
+    this.setState({ songArray: myArray })
   }
 
   tellSongConfirmation = (myJSON) => {
-    this.setState({ leaderboardVisible: true ,songConfirmationVisible: true, songInfo:myJSON })
+    this.setState({ leaderboardVisible: true, songConfirmationVisible: true, songInfo: myJSON })
   }
 
   destroySongConfirmation = () => {
-    this.setState({songConfirmationVisible:false})
+    this.setState({ songConfirmationVisible: false })
   }
 
   generateLeaderboard = () => {
-   this.setState({leaderboardVisible:true})
+    this.setState({ leaderboardVisible: true })
   }
 
   createLeaderboard = () => {
@@ -73,14 +73,14 @@ class App extends Component {
   }
 
   destroyLeaderboard = () => {
-    this.setState({leaderboardVisible:false})
+    this.setState({ leaderboardVisible: false })
   }
 
 
   render() {
     return (
       <div className="App">
-        <Title/>
+        <Title />
         {this.createSearchBars()}
         {this.createSongConfirmation()}
         {this.createLeaderboard()}
