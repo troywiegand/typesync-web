@@ -11,25 +11,24 @@ class Leaderboard extends Component {
         }
     }
 
-    // componentDidMount() {
+    componentDidMount() {
+        let id = this.props.song.genius_id;
+        let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"
 
+        fetch(url, {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' },
+        }).then((response) => {
+            return response.json()
+        }).then((response) => {
+            this.setState({persons: response["results"]})
+        })
 
-    //     fetch(url, {
-    //         method: "GET",
-    //         headers: { 'Content-Type': 'application/json' },
-    //     }).then((response) => {
-    //         return response.json()
-    //     }).then((response) => {
-    //         this.setState({persons: response["results"]})
-    //     })
+     }
 
-    // }
-
-    render() {
+    render = () => {
 
         let list = this.state.persons;
-        console.log(this.state.persons)
-
         if (list.length === 0) {
             return <div id="empty">
                 {/* Be the first to complete this song! */}

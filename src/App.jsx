@@ -58,7 +58,6 @@ class App extends Component {
         this.setState({leaderboards: response["results"]})
       })
 
-
       return <Leaderboard 
         persons={this.state.leaderboards}
         song={this.state.song}
@@ -93,19 +92,15 @@ class App extends Component {
 
   // user submit to new song
   research = (json) => {
-    this.setState({ tally: this.state.tally + 1 })
-    this.setState({ song: json, submissionVisible: false, searchVisible: true, songConfirmationVisible: true, leaderboardVisible: true, searchVisible: true})
+    //this.setState({ tally: this.state.tally + 1 })
+    this.setState({ song: json, submissionVisible: false, searchVisible: true, songConfirmationVisible: true, leaderboardVisible: true})
   }
 
   render = () => {
     return (
       <div className="App">
         <Title />
-        <div id="shortcut" onClick={() => {
-          document.querySelector('#song-box').value = "you suffer"; 
-          document.querySelector('#artist-box').value = "napalm death";
-          // document.querySelector('form').submit();
-        }}></div>
+        
         {this.createSearchBars()}
         {this.createSongConfirmation()}
         {this.createLeaderboard()}
