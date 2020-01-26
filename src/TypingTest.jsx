@@ -148,7 +148,7 @@ class TypingTest extends Component {
 
           </div>
           <br />
-          <div>
+          <div id="boxed">
             {this.createUserSubmitScore()}
             {Math.round(this.state.milliseconds / 10) / 10} seconds
           <ProgressBar percentage={this.state.typedChars / this.state.songCharLength * 100} />
