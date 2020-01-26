@@ -26,7 +26,9 @@ class UserSubmitScore extends Component {
             <div className="UserSubmitScore">
                 <form onSubmit={this.submitUserScore}>
                     <input type="text" name="userName" autoComplete="off" placeholder="Enter your name:" />
-                </form>
+                </form><div hidden={!this.state.showVictory} id="victoryText">
+                {this.state.victoryMessage}
+                </div>
             </div>
         )
     }

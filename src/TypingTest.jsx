@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './TypingTest.css'
-import UserSubmitScore from './UserSubmitScore';
 import ProgressBar from './Components/ProgressBar';
 
 class TypingTest extends Component {
@@ -11,39 +10,31 @@ class TypingTest extends Component {
       currentString: "",
       nextString: "",
       typingString: "",
-      victoryMessage: "Enter Your Name Below to Earn Your Place on the Leaderboard!",
       classOfText: "good",
       stringArray: [],
-      showVictory: false,
-      showLines: true,
       milliseconds: 0,
       startTyping: false,
-      userUserSubmitScoreVisible: false,
-      songUUID: "fakeUUID",
       songCharLength: 19,
       typedChars: 0,
-      hideTextSubmission: false,
-      hideStats: false,
     }
 
   }
 
   componentDidMount() {
-    let songLines = this.props.songArray
+    let songLines = this.props.song.lyrics
     let newCurrent = songLines.shift()
     let newNext = songLines.shift()
     this.setState({
       currentString: newCurrent,
       nextString: newNext,
       stringArray: songLines,
-      songLineLength: this.props.songArray.length,
-      songCharLength: this.props.songInfo.total_char
+      songCharLength: this.props.song.total_char
     })
   }
 
   checkRenderBad = () => {
     if (this.state.typingString !== this.state.currentString.substring(0, this.state.typingString.length))
-      this.setState({ classOfText: "bad", })
+      this.setState({ classOfText: "bad" })
     else this.setState({ classOfText: "good" })
   }
 
@@ -75,8 +66,8 @@ class TypingTest extends Component {
     } else {
       ev.preventDefault()
       clearInterval(this.timer)
-      this.setState({ currentString: "", typingString: "", showLines: false, showVictory: true, userSubmitScoreVisible: true, typedChars: this.state.typedChars + 1, hideTextSubmission: true })
-
+      this.setState({ currentString: "", typingString: "", typedChars: this.state.typedChars + 1})
+      this.props.testComplete(this.state.milliseconds)
     }
   }
 
@@ -100,7 +91,7 @@ class TypingTest extends Component {
       this.setState({ typingString: ev.target.value }, this.checkRenderBad)
     }
     else {
-      this.timer = setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 10)
+      this.timer = setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 1)
       this.setState({ typingString: ev.target.value, startTyping: true, typedChars: 1 }, this.checkRenderBad)
     }
   }
@@ -111,69 +102,43 @@ class TypingTest extends Component {
     }
   }
 
-  createUserSubmitScore = () => {
-    if (this.state.userSubmitScoreVisible)
-      return (<UserSubmitScore scoreTime={this.state.milliseconds} songUUID={this.props.songInfo.genius_id} generateLeaderboard={this.props.generateLeaderboard} destroyUserSubmitScore={this.destroyUserSubmitScore} hideVictory={this.hideVictory} hideStats={this.hideStats}
-        generateSearchBars={this.props.generateSearchBars} />)
-  }
-
-  destroyUserSubmitScore = () => {
-    this.setState({ userSubmitScoreVisible: false })
-  }
-
-  hideVictory = () => {
-    this.setState({ showVictory: false })
-  }
-
-  hideStats = () => {
-    this.setState({ hideStats: true })
-  }
-
   render() {
     return (
       <div className="TypingTest">
 
+        {(this.state.milliseconds / 100).toFixed(1)}
 
-        <div hidden={this.state.hideStats}>
-          <input
-            autoComplete="off"
-            id="typingField"
-            className={this.state.classOfText}
-            onPaste={(e) => { e.preventDefault(); return false; }}
-            type="text"
-            name="typing"
-            autoFocus
-            placeholder="Type here..."
-            value={this.state.typingString}
-            onKeyPress={this.handleKeyPress}
-            onChange={this.handleChangeTypingString}
-          />
+        <input
+          autoComplete="off"
+          id="typingField"
+          className={this.state.classOfText}
+          onPaste={(e) => { e.preventDefault(); return false; }}
+          type="text"
+          name="typing"
+          autoFocus
+          placeholder="Type here..."
+          value={this.state.typingString}
+          onKeyPress={this.handleKeyPress}
+          onChange={this.handleChangeTypingString}
+        />
 
-          <ProgressBar id="progress-bar" percentage={100 > this.state.typedChars / this.state.songCharLength * 100 ? this.state.typedChars / this.state.songCharLength * 100 : 100} />
+        <ProgressBar 
+          id="progress-bar" 
+          percentage = {
+            100 > this.state.typedChars / this.state.songCharLength * 100 
+            ? this.state.typedChars / this.state.songCharLength * 100 
+            : 100 } 
+        />
 
-          <div hidden={!this.state.showLines}>
-            <div id="top-line" className="displayText">
-              {this.state.currentString}
-            </div>
-            <div id="bot-line" className="displayText">
-              {this.state.nextString}
-              <br />
-              <div id="boxed">
-                {this.createUserSubmitScore()}
-                {(this.state.milliseconds / 100).toFixed(1)}
-              </div>
-            </div>
+        <div>
+          <div id="top-line" className="displayText">
+            {this.state.currentString}
           </div>
-
-          <div hidden={!this.state.showVictory} id="victoryText">
-            {this.state.victoryMessage}
+          <div id="bot-line" className="displayText">
+            {this.state.nextString}
           </div>
-
-          <div>
-            {this.createUserSubmitScore()}
-          </div>
-
         </div>
+
       </div>
     );
   }

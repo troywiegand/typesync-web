@@ -10,35 +10,28 @@ class SearchBars extends Component {
             artist: '',
             URL: 'http://34.74.220.91:8080'
         }
-
     }
     
 
     handleSubmit = (ev) => {
-        this.props.resetConfirmationLeaderboard()
         ev.preventDefault()
 
         let reqPath = "/lyrics/artist/" + this.state.artist.replace(/ /g, "|") + "/title/" + this.state.title.replace(/ /g, "|")
-        console.log(this.state.URL + reqPath)
         fetch(this.state.URL + reqPath, {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
         }).then((response) => {
-            console.log(response)
             return response.json();
         }).then((myJson) => {
             if (myJson["status"] === "found") {
-                this.props.getSongArray(myJson["lyrics"])
-                console.log(myJson)
-                this.props.tellSongConfirmation(myJson)
+                this.props.discovery(myJson)
             }
-            else this.props.tellSongConfirmation({ status: "not" })
+            else this.props.discovery({ status: "not" })
         }).catch(() => {
-            this.props.tellSongConfirmation({ status: "not" })
+            this.props.discovery({ status: "not" })
         })
 
     }
-
 
     handleChangeTitle = (ev) => {
         this.setState({ title: ev.target.value })
@@ -50,18 +43,18 @@ class SearchBars extends Component {
     render() {
         return (<div className="HomeScreen">
             <form onSubmit={this.handleSubmit}>
-                <input class="flex-item" id="song-box" type="text" name="title"
+                <input className="flex-item" id="song-box" type="text" name="title"
                     autoFocus
                     placeholder="Song Title"
                     value={this.state.title}
                     onChange={this.handleChangeTitle}
                 />
-                <input class="flex-item" id="artist-box" type="text" name="rule"
+                <input className="flex-item" id="artist-box" type="text" name="rule"
                     placeholder="Artist Name"
                     value={this.state.body}
                     onChange={this.handleChangeArtist}
                 />
-                <button class="flex-item" id="search-button" type="submit" >Search!</button>
+                <button className="flex-item" id="search-button" type="submit" >Search!</button>
             </form>
         </div>)
     }

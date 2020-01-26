@@ -41,7 +41,7 @@ class Leaderboard extends Component {
                     <th>Time</th>
                 </tr>
                 {list.map((value, index) => {
-                    return <tr>
+                    return <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{value.username}</td>
                         <td>{new Date(value.milliseconds).toDateString()}</td>

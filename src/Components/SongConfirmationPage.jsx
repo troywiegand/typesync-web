@@ -5,37 +5,9 @@ class SongConfirmationPage extends Component {
 
     state={formVisible:true}
 
-    onConfirmationSubmit = (ev) =>{
+    onConfirmationSubmit = (ev) => {
         ev.preventDefault()
-        this.setState({formVisible:false})
-        this.props.confirmSongForTest()
-        this.props.destroyLeaderboard()
-        }
-
-    showForm = () => {
-        if(this.state.formVisible)
-        return(<div>
-              <p>Is This Correct?</p>
-                <input type="button" value="Yes" onClick={this.onConfirmationSubmit} />
-                <input type="button" value="No" onClick={this.props.destroySongConfirmation} />
-        </div>)
-    }
-
-    createMessage = () => {
-        if (this.props.song.status === "not")
-            return (
-                <div>
-                    <img src="record.png"></img>
-                    <h2>Sorry, we couldn't find your song.</h2>
-                </div>
-            )
-        else return (
-            <div>
-            <h2>
-            <span id="song-title">{this.props.song.title}</span> by <span id="song-artist">{this.props.song.artist}</span>
-            </h2>
-            {this.showForm()}
-        </div>)
+        this.props.startTest()
     }
 
     getArt = () => {

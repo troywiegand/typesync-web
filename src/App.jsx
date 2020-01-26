@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import Title from './Components/Title.jsx';
-import SearchBars from './SearchBars.jsx';
-import SongConfirmationPage from './SongConfirmationPage.jsx';
-import TypingTest from './TypingTest.jsx';
-import Leaderboard from './Components/Leaderboard.jsx';
+import Title from './Components/Title';
+import SearchBars from './Components/SearchBars';
+import SongConfirmationPage from './Components/SongConfirmationPage';
+import TypingTest from './TypingTest';
+import Leaderboard from './Components/Leaderboard';
+import UserSubmitScore from './UserSubmitScore';
 
 class App extends Component {
   constructor() {
@@ -19,51 +20,24 @@ class App extends Component {
     }
   }
 
-  generateSearchBars = () => {
-    this.setState({ searchVisible: true })
-  }
   createSearchBars = () => {
     if (this.state.searchVisible) {
       return (<div>
-        <SearchBars tellSongConfirmation={this.tellSongConfirmation} getSongArray={this.getSongArray} resetConfirmationLeaderboard={this.resetConfirmationLeaderboard} />
+        <SearchBars discovery={this.discovery} />
       </div>)
     }
   }
 
-  resetConfirmationLeaderboard = () => {
-    this.setState({ leaderboardVisible: false, songConfirmationVisible: false })
-  }
-
   createSongConfirmation = () => {
-    if (this.state.songConfirmationVisible) {
-      return (<SongConfirmationPage destroyLeaderboard={this.destroyLeaderboard} destroySongConfirmation={this.destroySongConfirmation} confirmSongForTest={this.confirmSongForTest} song={this.state.songInfo} />)
-    } else { return (<div />) }
+    if (this.state.songConfirmationVisible)
+      return <SongConfirmationPage startTest={this.startTest} song={this.state.songInfo} />
   }
 
   createTest = () => {
-    if (this.state.testVisible) {
-      return (<TypingTest generateSearchBars={this.generateSearchBars} generateLeaderboard={this.generateLeaderboard} songArray={this.state.songArray} songInfo={this.state.songInfo} />)
-    } else { return (<div />) }
-  }
-
-  confirmSongForTest = () => {
-    this.setState({ searchVisible: false, testVisible: true })
-  }
-
-  getSongArray = (myArray) => {
-    this.setState({ songArray: myArray })
-  }
-
-  tellSongConfirmation = (myJSON) => {
-    this.setState({ leaderboardVisible: true, songConfirmationVisible: true, songInfo: myJSON })
-  }
-
-  destroySongConfirmation = () => {
-    this.setState({ songConfirmationVisible: false })
-  }
-
-  generateLeaderboard = () => {
-    this.setState({ leaderboardVisible: true })
+    if (this.state.testVisible)
+      return <TypingTest 
+        song={this.state.songInfo} 
+      />
   }
 
   createLeaderboard = () => {
@@ -72,12 +46,41 @@ class App extends Component {
     }
   }
 
-  destroyLeaderboard = () => {
-    this.setState({ leaderboardVisible: false })
+    
+  
+
+  // start to new song
+  discovery = (json) => {
+    this.setState({songInfo: json, songConfirmationVisible: true, leaderboardVisible: true})
   }
 
+  // new song to test
+  startTest = () => {
+    this.setState({ leaderboardVisible: false, testVisible: true})
+  }
 
-  render() {
+  // test to user submit
+  testComplete = (time) => {
+    this.setState({ testVisible: false, submissionVisible: true, testCompletionTime: time })
+  }
+
+  // user submit to new song
+  research = () => {
+
+  }
+
+  createUserSubmitScore = () => {
+    if (this.state.userSubmitScoreVisible)
+      return <UserSubmitScore 
+        scoreTime={this.state.milliseconds} 
+        songUUID={this.props.songInfo.genius_id} 
+        generateLeaderboard={this.props.generateLeaderboard} 
+        destroyUserSubmitScore={this.destroyUserSubmitScore}
+        generateSearchBars={this.props.generateSearchBars}
+      />
+  }
+      
+  render = () => {
     return (
       <div className="App">
         <Title />
@@ -85,9 +88,11 @@ class App extends Component {
         {this.createSongConfirmation()}
         {this.createLeaderboard()}
         {this.createTest()}
+        {this.createUserSubmitScore()}
       </div>
     );
   }
-}
+
+};
 
 export default App;
