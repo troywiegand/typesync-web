@@ -1,5 +1,8 @@
 #victoryText {
-    font-size: 2em;
+    margin-top: 30px;
+    font-size: 3em;
+    font-weight: 600;
+    letter-spacing: 4px;
 }
 
 #wpm {
@@ -7,8 +10,39 @@
     font-weight: 600;
 }
 
-.UserSubmitScore input {
-    margin: 10px;
+#time {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+#stats {
+    margin: 20px;
+    font-size: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#stats > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    margin: 20px;
+    height: 140px;
+    box-shadow: 0 5px 5px 5px lightgrey;
+}
+
+.UserSubmitScore input[type="text"] {
+    margin: 0px;
     height: 56px;
     font-size: 22px;
+}
+
+button {
+    margin-left: 10px;
+    height: 62px;
+    position: relative;
+    bottom: 1px;
+    font-size: 20px;
 }

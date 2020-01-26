@@ -21,12 +21,21 @@ class UserSubmitScore extends Component {
         return (
             <div className="UserSubmitScore">
                 <div id="victoryText">
-                    Finished! You typed at
-                    <div id="wpm">{(this.props.song.total_char * 1000 / this.props.scoreTime).toFixed(1)}</div>
-                    words per minute.
+                    Finished!
+                </div>
+                <div id="stats">
+                    <div>
+                        <div id="wpm">{(this.props.song.total_char * 1000 / this.props.scoreTime).toFixed(1)}</div>
+                        wpm
+                    </div>
+                    <div>
+                        <div id="time">{(this.props.scoreTime / 1000).toFixed(1)}</div>
+                        time
+                    </div>
                 </div>
                 <form onSubmit={this.submitUserScore}>
                     <input type="text" name="userName" autoComplete="off" placeholder="Enter your name:" />
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         )
