@@ -16,6 +16,7 @@ class App extends Component {
       songConfirmationVisible: false,
       leaderboardVisible: false,
       song: {},
+      leaderboards: [], 
       tally: 0,
     }
   }
@@ -31,7 +32,7 @@ class App extends Component {
   createSongConfirmation = () => {
     if (this.state.songConfirmationVisible)
       return <SongConfirmationPage 
-        startTest={this.startTest} 
+        startTest={this.startTest}
         song={this.state.song}
       />
   }
@@ -46,9 +47,23 @@ class App extends Component {
 
   createLeaderboard = () => {
     if (this.state.leaderboardVisible) {
+      let id = this.state.song.genius_id;
+      let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"
+      fetch(url, {
+        method: "GET",
+        headers: { 'Content-Type': 'application/json' },
+      }).then((response) => {
+        return response.json()
+      }).then((response) => {
+        this.setState({leaderboards: response["results"]})
+      })
+
+      
       return <Leaderboard 
+        persons={this.state.leaderboards}
         song={this.state.song}
       />
+      
     }
   }
 
@@ -68,7 +83,7 @@ class App extends Component {
 
   // new song to test
   startTest = () => {
-    this.setState({ leaderboardVisible: false, testVisible: true})
+    this.setState({ leaderboardVisible: false, testVisible: true, searchVisible: false})
   }
 
   // test to user submit
@@ -79,13 +94,18 @@ class App extends Component {
   // user submit to new song
   research = (json) => {
     this.setState({ tally: this.state.tally + 1 })
-    this.setState({ song: json, submissionVisible: false, songConfirmationVisible: true, leaderboardVisible: true, searchVisible: true})
+    this.setState({ song: json, submissionVisible: false, searchVisible: true, songConfirmationVisible: true, leaderboardVisible: true, searchVisible: true})
   }
 
   render = () => {
     return (
       <div className="App">
         <Title />
+        <div id="shortcut" onClick={() => {
+          document.querySelector('#song-box').value = "you suffer"; 
+          document.querySelector('#artist-box').value = "napalm death";
+          // document.querySelector('form').submit();
+        }}></div>
         {this.createSearchBars()}
         {this.createSongConfirmation()}
         {this.createLeaderboard()}

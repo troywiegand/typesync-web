@@ -1,0 +1,14 @@
+#victoryText {
+    font-size: 2em;
+}
+
+#wpm {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.UserSubmitScore input {
+    margin: 10px;
+    height: 56px;
+    font-size: 22px;
+}

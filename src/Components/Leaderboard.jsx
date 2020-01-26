@@ -3,24 +3,27 @@ import './Leaderboard.css';
 
 class Leaderboard extends Component {
 
-    state = {
-        persons: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            persons: [],
+            id: 0,
+        }
     }
 
-    componentDidMount() {
+    // componentDidMount() {
 
-        let id = this.props.song.genius_id;
-        let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"
 
-        fetch(url, {
-            method: "GET",
-            headers: { 'Content-Type': 'application/json' },
-        }).then((response) => {
-            return response.json()
-        }).then((response) => {
-            this.setState({persons: response["results"]})
-        })
-    }
+    //     fetch(url, {
+    //         method: "GET",
+    //         headers: { 'Content-Type': 'application/json' },
+    //     }).then((response) => {
+    //         return response.json()
+    //     }).then((response) => {
+    //         this.setState({persons: response["results"]})
+    //     })
+
+    // }
 
     render() {
 
