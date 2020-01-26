@@ -3,13 +3,6 @@ import './TypingTest.css'
 import UserSubmitScore from './UserSubmitScore';
 import ProgressBar from './Components/ProgressBar';
 
-var divStyle = {
-  overflow: 'none',
-  height: '0px',
-  background: 'transparent',
-}
-
-
 class TypingTest extends Component {
 
   constructor() {
@@ -124,37 +117,41 @@ class TypingTest extends Component {
   render() {
     return (
       <div className="TypingTest">
-        <br />
-        <div style={divStyle}>
-          <input autoComplete="off" id="typingField" className={this.state.classOfText} onPaste={(e)=> {e.preventDefault(); return false;}}type="text" name="typing"
-            autoFocus placeholder="Type Here... "
-            value={this.state.typingString}
-            onKeyPress={this.handleKeyPress}
-            onChange={this.handleChangeTypingString}
 
-          />
-          <br />
-          <div hidden={!this.state.showVictory} className="victoryText">
-            {this.state.victoryMessage}
-          </div>
-          <div hidden={!this.state.showLines}>
-            <div className="displayText">
-              {this.state.currentString}
-            </div>
-            <br />
-            <div className="displayText">
-              {this.state.nextString}
-            </div>
+        {(this.state.milliseconds / 100).toFixed(1)} 
 
-          </div>
-          <br />
-          <div>
-            {this.createUserSubmitScore()}
-            {Math.round(this.state.milliseconds / 10) / 10} seconds
-          <ProgressBar percentage={100>this.state.typedChars / this.state.songCharLength * 100?this.state.typedChars / this.state.songCharLength * 100:100} />
-          </div>
+        <input 
+          autoComplete="off" 
+          id="typingField" 
+          className={this.state.classOfText} 
+          onPaste={(e)=> {e.preventDefault(); return false;}} 
+          type="text" 
+          name="typing"
+          autoFocus 
+          placeholder="Type here..."
+          value={this.state.typingString}
+          onKeyPress={this.handleKeyPress}
+          onChange={this.handleChangeTypingString}
+        />
+        <ProgressBar id="progress-bar" percentage={100>this.state.typedChars / this.state.songCharLength * 100?this.state.typedChars / this.state.songCharLength * 100:100} />
 
+        <div hidden={!this.state.showLines}>
+          <div id="top-line" className="displayText">
+            {this.state.currentString}
+          </div>
+          <div id="bot-line" className="displayText">
+            {this.state.nextString}
+          </div>
         </div>
+        
+        <div hidden={!this.state.showVictory} id="victoryText">
+          {this.state.victoryMessage}
+        </div>
+        
+        <div>
+          {this.createUserSubmitScore()}
+        </div>
+
       </div>
 
     );

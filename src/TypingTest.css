@@ -1,3 +1,25 @@
+.TypingTest {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    max-width: 900px;
+}
+
+.TypingTest input[type=text] {
+    background: transparent;
+    border: none;
+    /* border-bottom: 3px solid #dddddd; */
+    padding: 0 100px;
+    font-style: italic;
+}
+
+.displayText {
+    font-size: 2em;
+    margin: 20px;
+    width: 90%;
+    font-weight: 300;
+}
+
 input.bad{
     color: #ff0000;
 }
@@ -19,11 +41,7 @@ input.good:focus {
     font-size:28pt;
 }
 
-.displayText{
-    font-size:28pt;
-}
-
-.victoryText{
+#victoryText{
     font-size:36pt;
     color: #034d03
 }
