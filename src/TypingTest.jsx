@@ -97,7 +97,8 @@ class TypingTest extends Component {
       this.setState({ typingString: ev.target.value }, this.checkRenderBad)
     }
     else {
-      this.timer = setInterval(() => { this.setState({ milliseconds: (this.state.milliseconds + 1) }) }, 1)
+      this.setState({startTime: Date.now()})
+      this.timer = setInterval(() => { this.setState({ milliseconds: Date.now() - this.state.startTime}) }, 1)
       this.setState({ typingString: ev.target.value, startTyping: true, typedChars: 1 }, this.checkRenderBad)
     }
   }
@@ -112,7 +113,7 @@ class TypingTest extends Component {
     return (
       <div className="TypingTest">
 
-        {(this.state.milliseconds / 100).toFixed(1)}
+        {(this.state.milliseconds / 1000).toFixed(1)}
 
         <input
           autoComplete="off"
