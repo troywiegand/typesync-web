@@ -8,8 +8,8 @@ class SearchBars extends Component {
         this.state = {
             title: '',
             artist: '',
-            // URL: 'http://34.74.220.91:8080'
-            URL: 'http://localhost:8080'
+            URL: 'http://34.74.220.91:8080'
+            // URL: 'http://localhost:8080'
         }
     }
     
