@@ -22,6 +22,7 @@ class Leaderboard extends Component {
             return response.json()
         }).then((response) => {
             this.setState({persons: response["results"]})
+            console.log(response)
         })
 
      }
