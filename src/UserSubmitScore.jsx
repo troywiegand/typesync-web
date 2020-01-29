@@ -25,7 +25,7 @@ class UserSubmitScore extends Component {
                 </div>
                 <div id="stats">
                     <div>
-                        <div id="wpm">{(this.props.song.total_char * 1000 / this.props.scoreTime).toFixed(1)}</div>
+                        <div id="wpm">{(this.props.song.total_char * 10000 / this.props.scoreTime).toFixed(1)}</div>
                         wpm
                     </div>
                     <div>
