@@ -1,10 +1,33 @@
-.SongConfirmationPage {
+.SongSummary {
     margin: 20px auto;
-    width: 600px;
+    width: 800px;
     height: 240px;
     box-shadow: 0 5px 5px 5px lightgrey;
 
     display: flex;
+}
+
+.modes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mode {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    border: 3px solid white;
+}
+
+.mode input {
+    display: none;
+}
+
+.selected {
+    border: 3px solid black;
+    border-radius: 8px;
 }
 
 img {
@@ -15,6 +38,7 @@ img {
 #song-title {
     font-style: italic;
     letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
 #song-artist{
@@ -42,7 +66,8 @@ img {
     width: 100px;
     height: 40px;
     background-color: red;
-    left: 150px;
+    left: 30px;
+    top: 180px;
     color: whitesmoke;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: 900;
@@ -59,8 +84,8 @@ img {
     border-color: transparent;
     
     position: relative;
-    left: 240px;
-    bottom: 53px;
+    left: 90px;
+    bottom: 50px;
 }
 
 #go-rectangle:hover {

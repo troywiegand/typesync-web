@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Title from './Components/Title';
 import SearchBars from './Components/SearchBars';
-import SongConfirmationPage from './Components/SongConfirmationPage';
+import SongSummary from './Components/SongSummary';
 import TypingTest from './TypingTest';
 import Leaderboard from './Components/Leaderboard';
 import UserSubmitScore from './UserSubmitScore';
@@ -13,11 +13,12 @@ class App extends Component {
     this.state = {
       searchVisible: true,
       testVisible: false,
-      songConfirmationVisible: false,
+      songSummaryVisible: false,
       leaderboardVisible: false,
       song: {},
       leaderboards: [], 
       tally: 0,
+      mode: "standard",
     }
   }
 
@@ -30,8 +31,8 @@ class App extends Component {
   }
 
   createSongConfirmation = () => {
-    if (this.state.songConfirmationVisible)
-      return <SongConfirmationPage 
+    if (this.state.songSummaryVisible)
+      return <SongSummary
         startTest={this.startTest}
         song={this.state.song}
       />
@@ -42,6 +43,7 @@ class App extends Component {
       return <TypingTest 
         testComplete={this.testComplete}
         song={this.state.song}
+        mode={this.state.mode}
       />
   }
 
@@ -60,6 +62,7 @@ class App extends Component {
         research={this.research}
         scoreTime={this.state.testCompletionTime}
         song={this.state.song}
+        mode={this.state.mode}
       />
   }
 
@@ -74,24 +77,44 @@ class App extends Component {
   }
       
   // start to new song
-  discovery = (json) => {
+  discovery = (song) => {
     this.power_nap_leaderboards()
-    this.setState({song: json, songConfirmationVisible: true, leaderboardVisible: true})
+    this.setState({
+        song: song, 
+        songSummaryVisible: true,
+        leaderboardVisible: true
+    })
   }
 
   // new song to test
-  startTest = () => {
-    this.setState({ leaderboardVisible: false, testVisible: true, searchVisible: false})
+  startTest = (mode) => {
+    this.setState({
+        leaderboardVisible: false,
+        testVisible: true,
+        searchVisible: false,
+        mode: mode,
+    })
   }
 
   // test to user submit
   testComplete = (time) => {
-    this.setState({ testVisible: false, submissionVisible: true, songConfirmationVisible: false, testCompletionTime: time })
+    this.setState({
+      testVisible: false,
+      submissionVisible: true,
+      songSummaryVisible: false,
+      testCompletionTime: time 
+    })
   }
 
   // user submit to new song
   research = (json) => {
-    this.setState({ song: json, submissionVisible: false, searchVisible: true, songConfirmationVisible: true, leaderboardVisible: true})
+    this.setState({
+        song: json, 
+        submissionVisible: false, 
+        searchVisible: true, 
+        songSummaryVisible: true, 
+        leaderboardVisible: true
+    })
   }
 
   render = () => {

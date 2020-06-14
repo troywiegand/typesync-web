@@ -14,7 +14,7 @@ class TypingTest extends Component {
       stringArray: [],
       milliseconds: 0,
       startTyping: false,
-      songCharLength: 19,
+      songCharLength: 0,
       typedChars: 0,
     }
 
@@ -22,20 +22,33 @@ class TypingTest extends Component {
 
   componentDidMount() {
     let dups = []
-    for (let i = 0; i < this.props.song.lyrics.length; i++) {
-      dups.push(this.props.song.lyrics[i])
+    if (this.props.mode === "standard") {
+        for (let i = 0; i < this.props.song.standard.lyrics.length; i++) {
+          dups.push(this.props.song.standard.lyrics[i])
+        }
+        let songLines = dups
+        let newCurrent = songLines.shift()
+        let newNext = songLines.shift()
+        this.setState({
+          currentString: newCurrent,
+          nextString: newNext,
+          stringArray: songLines,
+          songCharLength: this.props.song.standard.stats.total,
+        })
+    } else {
+        for (let i = 0; i < this.props.song.simple.lyrics.length; i++) {
+          dups.push(this.props.song.simple.lyrics[i])
+        }
+        let songLines = dups
+        let newCurrent = songLines.shift()
+        let newNext = songLines.shift()
+        this.setState({
+          currentString: newCurrent,
+          nextString: newNext,
+          stringArray: songLines,
+          songCharLength: this.props.song.simple.stats.total,
+        })
     }
-    console.log(this.props.song.lyrics)
-    let songLines = dups
-    let newCurrent = songLines.shift()
-    let newNext = songLines.shift()
-    this.setState({
-      currentString: newCurrent,
-      nextString: newNext,
-      stringArray: songLines,
-      songCharLength: this.props.song.total_char,
-    })
-    console.log(this.props.song.lyrics)
   }
 
   checkRenderBad = () => {
@@ -120,7 +133,7 @@ class TypingTest extends Component {
           autoComplete="off"
           id="typingField"
           className={this.state.classOfText}
-          onPaste={(e) => { e.preventDefault(); return false; }}
+          onPaste={e => { e.preventDefault(); return false; }}
           type="text"
           name="typing"
           autoFocus

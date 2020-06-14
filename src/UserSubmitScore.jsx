@@ -3,14 +3,19 @@ import './UserSubmitScore.css'
 
 class UserSubmitScore extends Component {
 
-    state = { URL: 'http://34.74.220.91:8080', }
+    state = { URL: 'http://localhost:8080', }
 
     submitUserScore = (ev) => {
         ev.preventDefault()
         fetch(this.state.URL + '/score', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ genius_id: this.props.song.genius_id, name: ev.target.userName.value, time: this.props.scoreTime }),
+            body: JSON.stringify({ 
+                genius_id: this.props.song.genius_id, 
+                name: ev.target.userName.value,
+                time: this.props.scoreTime,
+                mode: this.props.mode,
+            }),
         }).then(() => {
             this.props.research(this.props.song)
         })

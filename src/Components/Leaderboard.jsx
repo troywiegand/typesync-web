@@ -13,7 +13,7 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         let id = this.props.song.genius_id;
-        let url = "http://34.74.220.91:8080/leaderboards/" + id + "/limit/10"
+        let url = "http://127.0.0.1:8080/leaderboards/" + id + "/limit/10"
 
         fetch(url, {
             method: "GET",
@@ -21,6 +21,7 @@ class Leaderboard extends Component {
         }).then((response) => {
             return response.json()
         }).then((response) => {
+            console.log(response["results"])
             this.setState({persons: response["results"]})
         })
 
@@ -46,7 +47,7 @@ class Leaderboard extends Component {
                     return <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{value.username}</td>
-                        <td>{new Date(value.milliseconds).toDateString()}</td>
+                        <td>{new Date(parseInt(value.milliseconds)).toDateString()}</td>
                         <td>{(value.time/1000).toFixed(2)}</td>
                     </tr>
                 })}
