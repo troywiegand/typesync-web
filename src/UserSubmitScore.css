@@ -39,7 +39,7 @@
     font-size: 22px;
 }
 
-button {
+.UserSubmitScore button {
     margin-left: 10px;
     height: 62px;
     position: relative;

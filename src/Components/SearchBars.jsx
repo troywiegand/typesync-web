@@ -42,22 +42,20 @@ class SearchBars extends Component {
         this.setState({ artist: ev.target.value })
     }
     render() {
-        return <div className="HomeScreen">
-            <form onSubmit={this.handleSubmit}>
-                <input className="flex-item" id="song-box" type="text" name="title"
-                    autoFocus
-                    placeholder="Song Title"
-                    value={this.state.title}
-                    onChange={this.handleChangeTitle}
-                />
-                <input className="flex-item" id="artist-box" type="text" name="rule"
-                    placeholder="Artist Name"
-                    value={this.state.body}
-                    onChange={this.handleChangeArtist}
-                />
-                <button className="flex-item" id="search-button" type="submit" >Search!</button>
-            </form>
-        </div>
+        return <form className="search-box" onSubmit={this.handleSubmit}>
+            <input id="song-box" type="text" name="title"
+                autoFocus
+                placeholder="Song Title"
+                value={this.state.title}
+                onChange={this.handleChangeTitle}
+            />
+            <input id="artist-box" type="text" name="rule"
+                placeholder="Artist Name"
+                value={this.state.body}
+                onChange={this.handleChangeArtist}
+            />
+            <button className="search-button" type="submit" >Search!</button>
+        </form>
     }
 }
 
