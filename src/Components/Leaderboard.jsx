@@ -12,8 +12,9 @@ class Leaderboard extends Component {
     }
 
     componentDidMount() {
-        let id = this.props.song.genius_id;
-        let url = "http://127.0.0.1:8080/leaderboards/" + id + "/limit/10"
+        let id = this.props.song.genius_id
+        let mode = this.props.mode
+        let url = "http://127.0.0.1:8080/leaderboards/" + id + "/mode/" + mode + "/limit/10"
 
         fetch(url, {
             method: "GET",
@@ -37,6 +38,9 @@ class Leaderboard extends Component {
         } else {
             return <table id="leaderboard">
                 <tbody>
+                <tr>
+                    <th colspan="4" >{this.props.mode.charAt(0).toUpperCase() + this.props.mode.slice(1)}</th>
+                </tr>
                 <tr>
                     <th></th>
                     <th>Name</th>

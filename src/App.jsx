@@ -47,10 +47,11 @@ class App extends Component {
       />
   }
 
-  createLeaderboard = () => {
+  createLeaderboard = (mode) => {
     if (this.state.leaderboardVisible) {
       return <Leaderboard 
         song={this.state.song}
+        mode={mode}
       />
       
     }
@@ -124,7 +125,8 @@ class App extends Component {
         
         {this.createSearchBars()}
         {this.createSongConfirmation()}
-        {this.createLeaderboard()}
+        {this.createLeaderboard("standard")}
+        {this.createLeaderboard("simple")}
         {this.createTest()}
         {this.createUserSubmitScore()}
       </div>

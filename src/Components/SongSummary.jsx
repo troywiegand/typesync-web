@@ -16,38 +16,27 @@ class SongSummary extends Component {
     }
 
     getArt = () => {
-        if (this.props.song.status === "not")
-            return <img src="record.png"></img>
-        else
-            return <img src={this.props.song.album_art_url}></img>
+        return <img src={this.props.song.album_art_url}></img>
     }
 
     getDetails = () => {
-        if (this.props.song.status === "not")
-            return <div>
-                <h2>Song not found.</h2>
-                <p>Try a different song or check your spelling!</p>
-            </div>
-        else
-            return <div>
-                <h1 id="song-title">{this.props.song.title}</h1>
-                <h2 id="song-artist">{this.props.song.artist}</h2>
-            </div>
+        return <div>
+            <h1 id="song-title">{this.props.song.title}</h1>
+            <h2 id="song-artist">{this.props.song.artist}</h2>
+        </div>
     }
 
     getDifficultyRating = (mode) => {
-        if (this.props.song.status === "found") {
-            let styles = {color: this.getColor(mode)}
+        let styles = {color: this.getColor(mode)}
 
-            let level = this.props.song.standard.diff.level
-            if (mode === "simple") {
-                level = this.props.song.simple.diff.level
-            }
-                
-            return <div id="rating" style={styles}>
-                {level}
-            </div> 
+        let level = this.props.song.standard.diff.level
+        if (mode === "simple") {
+            level = this.props.song.simple.diff.level
         }
+            
+        return <div id="rating" style={styles}>
+            {level}
+        </div> 
     }
 
     getColor = (mode) => {
@@ -62,9 +51,14 @@ class SongSummary extends Component {
         let total = this.props.song.standard.stats.total
         if (mode === "simple")
             total = this.props.song.simple.stats.total
+        let diff = this.props.song.standard.diff.raw_level
+        if (mode === "simple")
+            diff = this.props.song.simple.diff.raw_level
 
-        if (this.props.song.status === "found")
-            return <div id="chars">{total} chars</div>
+        return <div className="stats">
+            <div>{total} chars</div>
+            <div>level {diff} song</div>
+        </div>
     }
 
     goButton = () => {
@@ -102,30 +96,37 @@ class SongSummary extends Component {
         }
     }
 
+    getModeOption = (modename) => {
+        return <label className="mode">
+            <input type="radio" name="mode" value={modename} />
+            <div>{modename.charAt(0).toUpperCase() + modename.slice(1)}</div>
+            {this.getDifficultyRating(modename)}
+            {this.getChars(modename)}
+        </label>
+    }
+
     render() {
-        return (
-            <div className="SongSummary">
+        if (this.props.song.status === "not") {
+            return <div className="SongSummary">
+                <img src="record.png"></img>
+                    <div className="details">
+                        <h2>Song not found.</h2>
+                        <p>Try a different song or check your spelling!</p>
+                    </div>
+                </div>
+        } else {
+            return <div className="SongSummary">
                 {this.getArt()}
                 <div className="details">
                     {this.getDetails()}
                     <form className="modes" onChange={this.onModeSelect}>
-                        <label className="mode">
-                            <input type="radio" name="mode" value="standard" />
-                            <div>Standard</div>
-                            {this.getDifficultyRating("standard")}
-                            {this.getChars("standard")}
-                        </label>
-                        <label className="mode">
-                            <input type="radio" name="mode" value="simple" />
-                            <div>Simple</div>
-                            {this.getDifficultyRating("simple")}
-                            {this.getChars("simple")}
-                        </label>
+                        {this.getModeOption("standard")}
+                        {this.getModeOption("simple")}
                     </form>
                 </div>
                 {this.goButton()}
             </div>
-        )
+        }
     }
 
 }
