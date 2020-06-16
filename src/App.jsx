@@ -70,11 +70,11 @@ class App extends Component {
       />
   }
 
-  createLeaderboard = () => {
+  createLeaderboard = (mode) => {
     if (this.state.leaderboardVisible) {
       return <Leaderboard 
         song={this.state.song}
-        mode={this.state.mode}
+        mode={mode}
       />
       
     }
