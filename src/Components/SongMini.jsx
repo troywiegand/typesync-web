@@ -40,6 +40,10 @@ class SongMini extends Component {
         return this.state.difficultyColors[index]
     }
 
+    formatTime = () => {
+        return (this.props.milliseconds / 1000).toFixed(2)
+    }
+
     render() {
         return <div className="SongMini">
             {this.getArt()}
@@ -51,6 +55,9 @@ class SongMini extends Component {
                     <div>{this.props.mode.charAt(0).toUpperCase() + this.props.mode.slice(1)}</div>
                     {this.getDifficultyRating(this.props.mode)}
                 </div>
+                <h1 className="timer">
+                    {this.formatTime()}
+                </h1>
             </div>
         </div>
     }

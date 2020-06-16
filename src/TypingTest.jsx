@@ -12,7 +12,6 @@ class TypingTest extends Component {
       typingString: "",
       classOfText: "good",
       stringArray: [],
-      milliseconds: 0,
       startTyping: false,
       songCharLength: 0,
       typedChars: 0,
@@ -84,10 +83,8 @@ class TypingTest extends Component {
       }
     } else {
       ev.preventDefault()
-      let m = this.state.milliseconds;
-      clearInterval(this.timer)
       this.setState({ currentString: "", typingString: "", typedChars: this.state.typedChars + 1})
-      this.props.testComplete(m)
+      this.props.testComplete()
     }
   }
 
@@ -111,8 +108,7 @@ class TypingTest extends Component {
       this.setState({ typingString: ev.target.value }, this.checkRenderBad)
     }
     else {
-      this.setState({startTime: Date.now()})
-      this.timer = setInterval(() => { this.setState({ milliseconds: Date.now() - this.state.startTime}) }, 1)
+      this.props.startTimer()
       this.setState({ typingString: ev.target.value, startTyping: true, typedChars: 1 }, this.checkRenderBad)
     }
   }
@@ -126,8 +122,6 @@ class TypingTest extends Component {
   render() {
     return (
       <div className="TypingTest">
-
-        {(this.state.milliseconds / 1000).toFixed(2)}
 
         <input
           autoComplete="off"

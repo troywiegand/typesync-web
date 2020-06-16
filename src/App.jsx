@@ -21,8 +21,18 @@ class App extends Component {
       leaderboards: [], 
       tally: 0,
       mode: "standard",
+      milliseconds: 0,
     }
   }
+    
+    startTimer = () => {
+        this.setState({ startTime: Date.now() })
+        this.timer = setInterval(() => { 
+            this.setState({ 
+                milliseconds: Date.now() - this.state.startTime
+            }) 
+        }, 1)
+    }
 
   createSearchBars = () => {
     if (this.state.searchVisible) {
@@ -46,6 +56,7 @@ class App extends Component {
         startTest={this.startTest}
         song={this.state.song}
         mode={this.state.mode}
+        milliseconds={this.state.milliseconds}
       />
   }
 
@@ -55,6 +66,7 @@ class App extends Component {
         testComplete={this.testComplete}
         song={this.state.song}
         mode={this.state.mode}
+        startTimer={this.startTimer}
       />
   }
 
@@ -98,6 +110,12 @@ class App extends Component {
     })
   }
 
+  updateTimer = (new_time) => {
+    this.setState({
+        time: new_time,
+    })
+  }
+
   // new song to test
   startTest = (mode) => {
     this.setState({
@@ -111,12 +129,13 @@ class App extends Component {
   }
 
   // test to user submit
-  testComplete = (time) => {
+  testComplete = () => {
+    clearInterval(this.timer)
     this.setState({
       testVisible: false,
       submissionVisible: true,
       songSummaryVisible: false,
-      testCompletionTime: time,
+      testCompletionTime: this.state.milliseconds,
       songMiniVisible: false,
     })
   }
