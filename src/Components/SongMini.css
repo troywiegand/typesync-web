@@ -1,0 +1,36 @@
+.SongMini {
+    margin: 25px auto;
+    width: 800px;
+    height: 120px;
+    box-shadow: 0 5px 5px 5px lightgrey;
+
+    display: flex;
+}
+
+img {
+    height: 100%;
+    max-width: 280px;
+}
+
+#song-title {
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+#song-artist{
+    margin-top: 0;
+}
+
+.mini-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#rating {
+    font-size: 2em;
+    font-weight: 600;
+}

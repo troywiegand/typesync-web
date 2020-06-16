@@ -3,6 +3,7 @@ import './App.css';
 import Title from './Components/Title';
 import SearchBars from './Components/SearchBars';
 import SongSummary from './Components/SongSummary';
+import SongMini from './Components/SongMini';
 import TypingTest from './TypingTest';
 import Leaderboard from './Components/Leaderboard';
 import UserSubmitScore from './UserSubmitScore';
@@ -14,6 +15,7 @@ class App extends Component {
       searchVisible: true,
       testVisible: false,
       songSummaryVisible: false,
+      songMiniVisible: false,
       leaderboardVisible: false,
       song: {},
       leaderboards: [], 
@@ -30,11 +32,20 @@ class App extends Component {
     }
   }
 
-  createSongConfirmation = () => {
+  createSongSummary = () => {
     if (this.state.songSummaryVisible)
       return <SongSummary
         startTest={this.startTest}
         song={this.state.song}
+      />
+  }
+
+  createSongMini = () => {
+    if (this.state.songMiniVisible)
+      return <SongMini
+        startTest={this.startTest}
+        song={this.state.song}
+        mode={this.state.mode}
       />
   }
 
@@ -47,11 +58,11 @@ class App extends Component {
       />
   }
 
-  createLeaderboard = (mode) => {
+  createLeaderboard = () => {
     if (this.state.leaderboardVisible) {
       return <Leaderboard 
         song={this.state.song}
-        mode={mode}
+        mode={this.state.mode}
       />
       
     }
@@ -93,6 +104,8 @@ class App extends Component {
         leaderboardVisible: false,
         testVisible: true,
         searchVisible: false,
+        songSummaryVisible: false,
+        songMiniVisible: true,
         mode: mode,
     })
   }
@@ -103,7 +116,8 @@ class App extends Component {
       testVisible: false,
       submissionVisible: true,
       songSummaryVisible: false,
-      testCompletionTime: time 
+      testCompletionTime: time,
+      songMiniVisible: false,
     })
   }
 
@@ -124,7 +138,8 @@ class App extends Component {
         <Title />
         
         {this.createSearchBars()}
-        {this.createSongConfirmation()}
+        {this.createSongSummary()}
+        {this.createSongMini()}
         {this.createLeaderboard("standard")}
         {this.createLeaderboard("simple")}
         {this.createTest()}
