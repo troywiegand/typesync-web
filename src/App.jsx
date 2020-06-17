@@ -8,6 +8,8 @@ import TypingTest from './TypingTest';
 import Leaderboard from './Components/Leaderboard';
 import UserSubmitScore from './UserSubmitScore';
 
+const api_url = "http://localhost:8080"
+
 class App extends Component {
   constructor() {
     super()
@@ -38,6 +40,7 @@ class App extends Component {
     if (this.state.searchVisible) {
       return <SearchBars 
         discovery={this.discovery}
+        api_url={api_url}
       />
     }
   }
@@ -75,6 +78,7 @@ class App extends Component {
       return <Leaderboard 
         song={this.state.song}
         mode={mode}
+        api_url={api_url}
       />
       
     }
@@ -87,6 +91,7 @@ class App extends Component {
         scoreTime={this.state.testCompletionTime}
         song={this.state.song}
         mode={this.state.mode}
+        api_url={api_url}
       />
   }
 

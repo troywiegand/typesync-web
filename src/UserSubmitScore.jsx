@@ -3,11 +3,9 @@ import './UserSubmitScore.scss'
 
 class UserSubmitScore extends Component {
 
-    state = { URL: 'http://localhost:8080', }
-
     submitUserScore = (ev) => {
         ev.preventDefault()
-        fetch(this.state.URL + '/score', {
+        fetch(this.props.api_url + '/score', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -56,7 +54,6 @@ class UserSubmitScore extends Component {
             </div>
         )
     }
-
 }
 
 export default UserSubmitScore;

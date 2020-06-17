@@ -14,7 +14,7 @@ class Leaderboard extends Component {
     componentDidMount() {
         let id = this.props.song.genius_id
         let mode = this.props.mode
-        let url = "http://127.0.0.1:8080/leaderboards/" + id + "/mode/" + mode + "/limit/10"
+        let url = this.props.api_url + "/leaderboards/" + id + "/mode/" + mode + "/limit/10"
 
         fetch(url, {
             method: "GET",
