@@ -1,8 +1,10 @@
+@import 'all';
+
 .TypingTest {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
-    max-width: 900px;
+    max-width: $wide;
 }
 
 .TypingTest input[type=text] {
@@ -38,7 +40,7 @@ input.good:focus {
 
 #boxed {
     border-style: solid;
-    border: 1px green ;
+    border: 1px green;
 }
 
 #typingField {

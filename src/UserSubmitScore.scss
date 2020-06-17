@@ -1,48 +1,62 @@
+@import 'all';
+
+#name-submission {
+    @include shadow;
+    display: flex;
+    justify-content: space-between;
+
+    margin: 20px 0;
+
+    * {
+        font-size: 22px;
+        border: 0 solid black;
+        margin: 15px;
+        width: 20%;
+    }
+
+    input[type="text"] {
+        border: 0;
+        border-bottom: 2px solid darkgrey;
+        width: 100%;
+        font-size: 22px;
+    }
+}
+
+.UserSubmitScore {
+    width: $narrow;
+    margin: 0 auto;
+}
+
 #victoryText {
-    margin-top: 30px;
     font-size: 3em;
     font-weight: 600;
     letter-spacing: 4px;
+    padding: 15px;
 }
 
-#wpm {
-    font-size: 2em;
-    font-weight: 600;
-}
-
-#time {
-    font-size: 2em;
-    font-weight: 600;
+#completion {
+    @include shadow;
+    box-sizing: border-box;
+    width: $narrow;
+    margin: 15px 0 ;
+    padding: 10px;
 }
 
 #stats {
-    margin: 20px;
     font-size: 2em;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        height: 140px;
+
+        div:first-child {
+            font-size: 2em;
+            font-weight: 600;
+        }
+    }
 }
 
-#stats > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 200px;
-    margin: 20px;
-    height: 140px;
-    box-shadow: 0 5px 5px 5px lightgrey;
-}
-
-.UserSubmitScore input[type="text"] {
-    margin: 0px;
-    height: 56px;
-    font-size: 22px;
-}
-
-.UserSubmitScore button {
-    margin-left: 10px;
-    height: 62px;
-    position: relative;
-    bottom: 1px;
-    font-size: 20px;
-}

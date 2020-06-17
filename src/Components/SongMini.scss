@@ -1,9 +1,11 @@
-.SongMini {
-    margin: 25px auto;
-    width: 800px;
-    height: 120px;
-    box-shadow: 0 5px 5px 5px lightgrey;
+@import '../all';
 
+.SongMini {
+    @include shadow;
+
+    width: $wide;
+    margin: 25px auto;
+    height: 120px;
     display: flex;
 }
 

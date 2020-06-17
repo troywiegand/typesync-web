@@ -1,0 +1,6 @@
+@mixin shadow {
+    box-shadow: 0 5px 5px 5px lightgrey;
+}
+
+$wide: 800px;
+$narrow: 600px;
