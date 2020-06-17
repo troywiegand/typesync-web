@@ -22,6 +22,15 @@ class UserSubmitScore extends Component {
 
     }
 
+    calculateWPM = () => {
+        let mode = this.props.mode
+        let total_chars = this.props.song.standard.stats.total
+        if (mode == "simple")
+            total_chars = this.props.song.simple.stats.total
+
+        return (total_chars * 10000 / this.props.scoreTime).toFixed(1)
+    }
+
     render() {
         return (
             <div className="UserSubmitScore">
@@ -31,7 +40,7 @@ class UserSubmitScore extends Component {
                     </div>
                     <div id="stats">
                         <div>
-                            <div id="wpm">{(this.props.song.total_char * 10000 / this.props.scoreTime).toFixed(1)}</div>
+                            <div id="wpm">{this.calculateWPM()}</div>
                             <div>wpm</div>
                         </div>
                         <div>

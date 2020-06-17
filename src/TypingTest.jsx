@@ -131,7 +131,7 @@ class TypingTest extends Component {
           type="text"
           name="typing"
           autoFocus
-          placeholder="Type here..."
+          placeholder="Type to begin..."
           value={this.state.typingString}
           onKeyPress={this.handleKeyPress}
           onChange={this.handleChangeTypingString}
