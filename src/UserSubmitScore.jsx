@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './UserSubmitScore.css'
+import './UserSubmitScore.scss'
 
 class UserSubmitScore extends Component {
 

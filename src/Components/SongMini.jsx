@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SongMini.css';
+import './SongMini.scss';
 
 class SongMini extends Component {
 

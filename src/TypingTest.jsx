@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TypingTest.css'
+import './TypingTest.scss'
 import ProgressBar from './Components/ProgressBar';
 
 class TypingTest extends Component {

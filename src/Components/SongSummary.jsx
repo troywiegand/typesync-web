@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './SongSummary.css';
+import './SongSummary.scss';
 
 class SongSummary extends Component {
 
