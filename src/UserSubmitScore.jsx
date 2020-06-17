@@ -7,7 +7,10 @@ class UserSubmitScore extends Component {
         ev.preventDefault()
         fetch(this.props.api_url + '/score', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({ 
                 genius_id: this.props.song.genius_id, 
                 name: ev.target.userName.value,

@@ -18,7 +18,10 @@ class SearchBars extends Component {
         let reqPath = "/lyrics/artist/" + this.state.artist.replace(/ /g, "|") + "/title/" + this.state.title.replace(/ /g, "|")
         fetch(this.props.api_url + reqPath, {
             method: "GET",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
         }).then((response) => {
             return response.json();
         }).then((myJson) => {

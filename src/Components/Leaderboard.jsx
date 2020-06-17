@@ -18,7 +18,10 @@ class Leaderboard extends Component {
 
         fetch(url, {
             method: "GET",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
         }).then((response) => {
             return response.json()
         }).then((response) => {
