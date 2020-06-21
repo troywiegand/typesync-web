@@ -76,7 +76,7 @@ class TypingTest extends Component {
         }
     }
 
-    // Updates typing buffer, calls accuracy check
+    // Updates typing buffer, calls accuracy check, starts timer
     readInput = (ev) => {
         if (!this.state.hasStarted) {
             this.props.startTimer()
@@ -101,9 +101,6 @@ class TypingTest extends Component {
             ev.preventDefault()
             this.advanceLyric()
         }
-
-        console.log(this.currentKeyPress())
-        console.log(this.totalKeyPress())
     }
 
     // Returns if the lyric is finished and accurate

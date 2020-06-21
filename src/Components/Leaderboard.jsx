@@ -11,7 +11,7 @@ class Leaderboard extends Component {
         }
     }
 
-    componentDidMount() {
+    fetchLeaderboards() {
         let id = this.props.song.genius_id
         let mode = this.props.mode
         let url = this.props.api_url + "/leaderboards/" + id + "/mode/" + mode + "/limit/10"
@@ -26,12 +26,16 @@ class Leaderboard extends Component {
             return response.json()
         }).then((response) => {
             console.log(response["results"])
-            this.setState({persons: response["results"]})
+            this.setState({
+                id,
+                persons: response["results"],
+            })
         })
-
-     }
+    }
 
     render = () => {
+        if (this.state.id !== this.props.song.genius_id)
+            this.fetchLeaderboards()
 
         let list = this.state.persons;
         if (list.length === 0) {
@@ -42,7 +46,7 @@ class Leaderboard extends Component {
             return <table id="leaderboard">
                 <tbody>
                 <tr>
-                    <th colspan="4" >{this.props.mode.charAt(0).toUpperCase() + this.props.mode.slice(1)}</th>
+                    <th colSpan="4">{this.props.mode.charAt(0).toUpperCase() + this.props.mode.slice(1)}</th>
                 </tr>
                 <tr>
                     <th></th>
