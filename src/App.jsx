@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+
 import Title from './Components/Title';
 import SearchBars from './Components/SearchBars';
 import SongSummary from './Components/SongSummary';
@@ -10,23 +11,24 @@ import UserSubmitScore from './UserSubmitScore';
 
 const api_url = "http://localhost:8080"
 
+const page = {
+    HOME: "home",
+    SONG: "song",
+    TEST: "test",
+    FINISH: "finish",
+}
+
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      searchVisible: true,
-      testVisible: false,
-      songSummaryVisible: false,
-      songMiniVisible: false,
-      leaderboardVisible: false,
-      song: {},
-      leaderboards: [], 
-      tally: 0,
-      mode: "standard",
-      milliseconds: 0,
+    constructor() {
+        super()
+        this.state = {
+            page: page.HOME,
+            song: {},
+            mode: "standard",
+            milliseconds: 0,
+        }
     }
-  }
-    
+
     startTimer = () => {
         this.setState({ startTime: Date.now() })
         this.timer = setInterval(() => { 
@@ -36,141 +38,123 @@ class App extends Component {
         }, 1)
     }
 
-  createSearchBars = () => {
-    if (this.state.searchVisible) {
-      return <SearchBars 
-        discovery={this.discovery}
-        api_url={api_url}
-      />
+    createSearchBars = () => {
+        console.log(this.state.page)
+        if (this.pageIs([page.HOME, page.SONG])) {
+            return <SearchBars 
+                discovery={this.discovery}
+                api_url={api_url}
+            />
+        }
     }
-  }
 
-  createSongSummary = () => {
-    if (this.state.songSummaryVisible)
-      return <SongSummary
-        startTest={this.startTest}
-        song={this.state.song}
-      />
-  }
-
-  createSongMini = () => {
-    if (this.state.songMiniVisible)
-      return <SongMini
-        startTest={this.startTest}
-        song={this.state.song}
-        mode={this.state.mode}
-        milliseconds={this.state.milliseconds}
-      />
-  }
-
-  createTest = () => {
-    if (this.state.testVisible)
-      return <TypingTest 
-        testComplete={this.testComplete}
-        song={this.state.song}
-        mode={this.state.mode}
-        startTimer={this.startTimer}
-      />
-  }
-
-  createLeaderboard = (mode) => {
-    if (this.state.leaderboardVisible) {
-      return <Leaderboard 
-        song={this.state.song}
-        mode={mode}
-        api_url={api_url}
-      />
-      
+    // Returns if the current page matches any given pages
+    pageIs = (pages) => {
+        return pages
+            .map(page => this.state.page === page) 
+            .includes(true)
     }
-  }
 
-  createUserSubmitScore = () => {
-    if (this.state.submissionVisible)
-      return <UserSubmitScore 
-        research={this.research}
-        scoreTime={this.state.testCompletionTime}
-        song={this.state.song}
-        mode={this.state.mode}
-        api_url={api_url}
-      />
-  }
+    createSongSummary = () => {
+        if (this.pageIs([page.SONG]))
+            return <SongSummary
+                startTest={this.startTest}
+                song={this.state.song}
+            />
+    }
 
-  // Hack to reset state on leaderboards
-  power_nap_leaderboards = () => {
-    this.setState({leaderboardVisible: false})
-    console.log("gone")
-    setTimeout(() => {
-      this.setState({leaderboardVisible: true})
-      console.log("back")
-    }, 500)
-  }
-      
-  // start to new song
-  discovery = (song) => {
-    this.power_nap_leaderboards()
-    this.setState({
-        song: song, 
-        songSummaryVisible: true,
-        leaderboardVisible: true
-    })
-  }
+    createSongMini = () => {
+        if (this.pageIs([page.TEST]))
+            return <SongMini
+                startTest={this.startTest}
+                song={this.state.song}
+                mode={this.state.mode}
+                milliseconds={this.state.milliseconds}
+            />
+    }
 
-  updateTimer = (new_time) => {
-    this.setState({
-        time: new_time,
-    })
-  }
+    createTest = () => {
+        if (this.pageIs([page.TEST]))
+            return <TypingTest 
+                testComplete={this.testComplete}
+                song={this.state.song}
+                mode={this.state.mode}
+                startTimer={this.startTimer}
+            />
+    }
 
-  // new song to test
-  startTest = (mode) => {
-    this.setState({
-        leaderboardVisible: false,
-        testVisible: true,
-        searchVisible: false,
-        songSummaryVisible: false,
-        songMiniVisible: true,
-        mode: mode,
-    })
-  }
+    createLeaderboard = (mode) => {
+        if (this.pageIs([page.SONG]))
+            return <Leaderboard 
+                song={this.state.song}
+                mode={mode}
+                api_url={api_url}
+            />
+    }
 
-  // test to user submit
-  testComplete = () => {
-    clearInterval(this.timer)
-    this.setState({
-      testVisible: false,
-      submissionVisible: true,
-      songSummaryVisible: false,
-      testCompletionTime: this.state.milliseconds,
-      songMiniVisible: false,
-    })
-  }
+    createUserSubmitScore = () => {
+        if (this.pageIs([page.FINISH]))
+            return <UserSubmitScore 
+                research={this.research}
+                scoreTime={this.state.testCompletionTime}
+                song={this.state.song}
+                mode={this.state.mode}
+                api_url={api_url}
+            />
+    }
 
-  // user submit to new song
-  research = (json) => {
-    this.setState({
-        song: json, 
-        submissionVisible: false, 
-        searchVisible: true, 
-        songSummaryVisible: true, 
-        leaderboardVisible: true
-    })
-  }
+    // start to new song
+    discovery = (song) => {
+        this.setState({
+            page: page.SONG,
+            song: song, 
+        })
+    }
 
-  render = () => {
-    return (
-      <div className="App">
-        <Title />
-        
-        {this.createSearchBars()}
-        {this.createSongSummary()}
-        {this.createSongMini()}
-        {this.createLeaderboard("standard")}
-        {this.createLeaderboard("simple")}
-        {this.createTest()}
-        {this.createUserSubmitScore()}
-      </div>
-    );
-  }
+    updateTimer = (new_time) => {
+        this.setState({
+            time: new_time,
+        })
+    }
+
+    // new song to test
+    startTest = (mode) => {
+        this.setState({
+            page: page.TEST,
+            mode: mode,
+        })
+    }
+
+    // test to user submit
+    testComplete = () => {
+        clearInterval(this.timer)
+        this.setState({
+            page: page.FINISH,
+            testCompletionTime: this.state.milliseconds,
+        })
+    }
+
+    // user submit to new song
+    research = (json) => {
+        this.setState({
+            page: page.SONG,
+            song: json, 
+        })
+    }
+
+    render = () => {
+        return <div className="App">
+            <Title />
+
+            {this.createSearchBars()}
+            {this.createSongSummary()}
+            {this.createSongMini()}
+            {this.createLeaderboard("standard")}
+            {this.createLeaderboard("simple")}
+            {this.createTest()}
+            {this.createUserSubmitScore()}
+        </div>
+    }
 
 };
 
