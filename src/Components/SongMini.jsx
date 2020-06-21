@@ -9,7 +9,7 @@ class SongMini extends Component {
     }
 
     getArt = () => {
-        return <img src={this.props.song.album_art_url}></img>
+        return <img alt="album art" src={this.props.song.album_art_url}></img>
     }
 
     getDetails = () => {

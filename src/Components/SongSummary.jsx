@@ -16,7 +16,7 @@ class SongSummary extends Component {
     }
 
     getArt = () => {
-        return <img src={this.props.song.album_art_url}></img>
+        return <img alt="album art" src={this.props.song.album_art_url}></img>
     }
 
     getDetails = () => {
@@ -108,7 +108,7 @@ class SongSummary extends Component {
     render() {
         if (this.props.song.status === "not") {
             return <div className="SongSummary">
-                <img src="record.png"></img>
+                <img alt="not found!" src="record.png"></img>
                     <div className="details">
                         <h2>Song not found.</h2>
                         <p>Try a different song or check your spelling!</p>

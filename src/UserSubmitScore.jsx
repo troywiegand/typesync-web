@@ -26,7 +26,7 @@ class UserSubmitScore extends Component {
     calculateWPM = () => {
         let mode = this.props.mode
         let total_chars = this.props.song.standard.stats.total
-        if (mode == "simple")
+        if (mode === "simple")
             total_chars = this.props.song.simple.stats.total
 
         return (total_chars * 10000 / this.props.scoreTime).toFixed(1)
