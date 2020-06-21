@@ -2,19 +2,17 @@ import React from 'react';
 import './ProgressBar.scss'
 
 const ProgressBar = (props) => {
+    let percent = props.current / props.total * 100
+    percent = percent > 100 ? 100 : percent
     return (
         <div className="progress-bar">
-            <Filler percentage={
-                100 > props.current / props.total * 100 
-                ? props.current / props.total * 100 
-                : 100
-            } />
+            <Filler percent={percent}/>
         </div>
     )
 }
 
 const Filler = (props) => {
-    return <div className="filler" style={{ width: `${props.percentage}%` }} />
+    return <div className="filler" style={{ width: `${props.percent}%` }} />
 }
 
 export default ProgressBar
