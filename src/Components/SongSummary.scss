@@ -21,16 +21,17 @@
     padding: 10px;
     margin: 0 10px;
     box-sizing: border-box;
-    border: 3px solid white;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 3px solid #F2F2F2;
+
+    &:hover {
+        box-shadow: 0 0 4px 4px #F2F2F2;
+    }
 }
 
 .mode input {
     display: none;
-}
-
-.selected {
-    border: 3px solid black;
-    border-radius: 8px;
 }
 
 img {

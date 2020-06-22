@@ -12,7 +12,7 @@ class SongSummary extends Component {
     onConfirmationSubmit = (ev) => {
         ev.preventDefault()
         this.setState({formVisible: false})
-        this.props.startTest(this.state.mode)
+        this.props.startTest()
     }
 
     getArt = () => {
@@ -63,10 +63,10 @@ class SongSummary extends Component {
 
     goButton = () => {
         if (this.props.song.status === "found" && this.state.formVisible) {
-            let color = this.getColor(this.state.mode)
+            let color = this.getColor(this.props.mode)
             let rect_style = {backgroundColor: color}
             let tri_style = {borderLeftColor: color}
-            let show = {visibility: this.state.mode === null ? "hidden" : "visible"}
+            let show = {visibility: this.props.mode === null ? "hidden" : "visible"}
             return <div style={show}>
                 <div id="go-rectangle" onClick={this.onConfirmationSubmit} style={rect_style}>
                     Start!
@@ -77,27 +77,16 @@ class SongSummary extends Component {
     }
 
     onModeSelect = (ev) => {
-        console.log(ev.target)
-        this.setState({ mode: ev.target.value })
-
-        let simple = ev.target.parentNode.parentNode.querySelector("input[value='simple']").parentNode
-        let standard = ev.target.parentNode.parentNode.querySelector("input[value='standard']").parentNode
-
-        if (ev.target.value === "standard") {
-            simple.classList.remove("selected")
-            standard.classList.add("selected")
-            standard.style.borderColor = this.getColor("standard")
-            simple.style.borderColor = "white"
-        } else {
-            simple.classList.add("selected")
-            standard.classList.remove("selected")
-            simple.style.borderColor = this.getColor("simple")
-            standard.style.borderColor = "white"
-        }
+        ev.preventDefault()
+        this.props.setMode(ev.target.value)
     }
 
     getModeOption = (modename) => {
-        return <label className="mode">
+        let style = this.props.mode === modename 
+            ? { borderColor: this.getColor(modename) }
+            : {}
+
+        return <label className="mode" style={style}>
             <input type="radio" name="mode" value={modename} />
             <div>{modename.charAt(0).toUpperCase() + modename.slice(1)}</div>
             {this.getDifficultyRating(modename)}

@@ -8,12 +8,15 @@ class SearchBars extends Component {
         this.state = {
             title: '',
             artist: '',
+            searching: false,
         }
     }
     
 
     handleSubmit = (ev) => {
         ev.preventDefault()
+
+        this.setState({ searching: true })
 
         let reqPath = "/lyrics/artist/" + this.state.artist.replace(/ /g, "|") + "/title/" + this.state.title.replace(/ /g, "|")
         fetch(this.props.api_url + reqPath, {
@@ -23,13 +26,18 @@ class SearchBars extends Component {
                 'Access-Control-Allow-Origin': '*'
             },
         }).then((response) => {
+            this.setState({ searching: false })
             return response.json();
         }).then((myJson) => {
             if (myJson["status"] === "found") {
+                let radios = document.querySelectorAll("input[type=radio]")
+                let array = Array.prototype.slice.call(radios)
+                array.forEach(radio => radio.checked = false)
                 this.props.discovery(myJson)
             }
             else this.props.discovery({ status: "not" })
         }).catch(() => {
+            this.setState({ searching: false })
             this.props.discovery({ status: "not" })
         })
 
@@ -55,7 +63,9 @@ class SearchBars extends Component {
                 value={this.state.body}
                 onChange={this.handleChangeArtist}
             />
-            <button className="search-button" type="submit" >Search!</button>
+            <button className="search-button" type="submit" >
+                { this.state.searching ? "Searching..." : "Search!" }
+            </button>
         </form>
     }
 }

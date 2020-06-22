@@ -25,7 +25,6 @@ class Leaderboard extends Component {
         }).then((response) => {
             return response.json()
         }).then((response) => {
-            console.log(response["results"])
             this.setState({
                 id,
                 persons: response["results"],
@@ -39,9 +38,16 @@ class Leaderboard extends Component {
 
         let list = this.state.persons;
         if (list.length === 0) {
-            return <div id="empty">
-                {/* Be the first to complete this song! */}
-            </div>
+            return <table id="leaderboard">
+                <tbody>
+                    <tr>
+                        <th colSpan="4">{this.props.mode.charAt(0).toUpperCase() + this.props.mode.slice(1)}</th>
+                    </tr>
+                    <tr>
+                        <td colSpan="4">Be the first to complete this song in {this.props.mode} mode!</td>
+                    </tr>
+                </tbody>
+            </table>
         } else {
             return <table id="leaderboard">
                 <tbody>
@@ -65,9 +71,7 @@ class Leaderboard extends Component {
                 </tbody>
             </table>
         }
-        
     }
-
 }
 
 export default Leaderboard

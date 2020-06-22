@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import './Title.scss'
 
 class Title extends Component{
-
     render(){
-        return(
-            <div className="Title rainbow">
-            <h2 onClick={() => {window.location.href="/"}}>TYPESYNC</h2>
-            </div>
-        )
+        return <div className="Title rainbow">
+            <h2 onClick={this.props.backHome}>TYPESYNC</h2>
+        </div>
     }
 }
 

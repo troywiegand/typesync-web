@@ -38,8 +38,11 @@ class App extends Component {
         }, 1)
     }
 
+    setMode = (mode) => {
+        this.setState({ mode: mode })
+    }
+
     createSearchBars = () => {
-        console.log(this.state.page)
         if (this.pageIs([page.HOME, page.SONG])) {
             return <SearchBars 
                 discovery={this.discovery}
@@ -60,6 +63,8 @@ class App extends Component {
             return <SongSummary
                 startTest={this.startTest}
                 song={this.state.song}
+                mode={this.state.mode}
+                setMode={this.setMode}
             />
     }
 
@@ -107,7 +112,8 @@ class App extends Component {
     discovery = (song) => {
         this.setState({
             page: page.SONG,
-            song: song, 
+            song: song,
+            mode: null,
         })
     }
 
@@ -118,10 +124,9 @@ class App extends Component {
     }
 
     // new song to test
-    startTest = (mode) => {
+    startTest = () => {
         this.setState({
             page: page.TEST,
-            mode: mode,
         })
     }
 
@@ -142,9 +147,15 @@ class App extends Component {
         })
     }
 
+    backHome = () => {
+        this.setState({
+            page: page.HOME
+        })
+    }
+
     render = () => {
         return <div className="App">
-            <Title />
+            <Title backHome={this.backHome}/>
 
             {this.createSearchBars()}
             {this.createSongSummary()}
