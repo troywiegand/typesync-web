@@ -1,13 +1,13 @@
-@import 'all';
+@import '../all';
 
-.TypingTest {
+.Karaoke {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
     max-width: $wide;
 }
 
-.TypingTest input[type=text] {
+.Karaoke input[type=text] {
     background: transparent;
     border: none;
     /* border-bottom: 3px solid #dddddd; */

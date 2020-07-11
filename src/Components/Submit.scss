@@ -1,4 +1,4 @@
-@import 'all';
+@import '../all';
 
 #name-submission {
     @include shadow;
@@ -22,7 +22,7 @@
     }
 }
 
-.UserSubmitScore {
+.Submit {
     width: $narrow;
     margin: 0 auto;
 }

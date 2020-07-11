@@ -18,6 +18,7 @@ class Leaderboard extends Component {
 
         fetch(url, {
             method: "GET",
+            mode: "cors",
             headers: { 
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import './UserSubmitScore.scss'
+import './Submit.scss'
 
-class UserSubmitScore extends Component {
+class Submit extends Component {
 
     submitUserScore = (ev) => {
         ev.preventDefault()
@@ -34,7 +34,7 @@ class UserSubmitScore extends Component {
 
     render() {
         return (
-            <div className="UserSubmitScore">
+            <div className="Submit">
                 <div id="completion">
                     <div id="victoryText">
                         Finished!
@@ -59,4 +59,4 @@ class UserSubmitScore extends Component {
     }
 }
 
-export default UserSubmitScore;
+export default Submit

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './TypingTest.scss'
-import ProgressBar from './Components/ProgressBar';
+import './Karaoke.scss'
+import ProgressBar from './ProgressBar';
 
-class TypingTest extends Component {
+class Karaoke extends Component {
 
     constructor(props) {
         super(props)
@@ -42,6 +42,7 @@ class TypingTest extends Component {
             accurate: this.state.typingBuffer === expected,
         })
     }
+
     // Advances the lyrics or calls callback for test completion
     advanceLyric = () => {
         // Reset buffer
@@ -124,7 +125,7 @@ class TypingTest extends Component {
     }
 
     render() {
-        return <div className="TypingTest">
+        return <div className="Karaoke">
 
             <input
                 autoComplete="off"
@@ -159,5 +160,5 @@ class TypingTest extends Component {
     }
 }
 
-export default TypingTest;
+export default Karaoke
 
